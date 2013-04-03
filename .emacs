@@ -1,5 +1,8 @@
-(setq indent-tabs-mode nil)
-(setq tab-width 4)
+(custom-set-variables
+  '(indent-tabs-mode nil)
+  '(tab-width 4)
+  '(standard-indent 4))
+
 (setq fill-column 100)
 (setq column-number-mode t)
 

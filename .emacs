@@ -41,7 +41,7 @@
 
 (defvar ffip-patterns
   '("*.html" "*.org" "*.txt" "*.md" "*.el" "*.clj" "*.py" "*.rb" "*.js" "*.pl"
-    "*.sh" "*.erl" "*.hs" "*.ml" "*.php" "*.json")
+    "*.sh" "*.erl" "*.hs" "*.ml" "*.php" "*.json" "*.sls" "*.ini" "*.conf")
   "List of patterns to look for with `find-file-in-project'.")
 
 (defvar ffip-find-options "-not -regex \".*(vendor|node_modules).*\""

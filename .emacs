@@ -2,7 +2,12 @@
 (setq tab-width 4)
 (setq fill-column 100)
 (setq column-number-mode t)
-(global-hl-line-mode 1)
+
+
+(defface hl-line '((t (:background "#220000")))
+  "Face to use for `hl-line-face'." :group 'hl-line)
+(setq hl-line-face 'hl-line)
+(global-hl-line-mode t)
 
 
 (custom-set-variables
@@ -12,10 +17,9 @@
 (make-directory "~/.emacs.d/autosaves/" t)
 
 
-(load "~/.emacs.d/extensions/nxhtml/autostart.el")
-
-
 (add-to-list 'load-path "~/.emacs.d/extensions")
+
+(require 'pi-php-mode)
 
 (require 'autopair)
 (autopair-global-mode)
@@ -25,6 +29,25 @@
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+(require 'package)
+(add-to-list 'package-archives 
+    '("marmalade" .
+      "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+
+(global-set-key (kbd "C-x f") 'find-file-in-project)
+
+(defvar ffip-patterns
+  '("*.html" "*.org" "*.txt" "*.md" "*.el" "*.clj" "*.py" "*.rb" "*.js" "*.pl"
+    "*.sh" "*.erl" "*.hs" "*.ml" "*.php" "*.json")
+  "List of patterns to look for with `find-file-in-project'.")
+
+(defvar ffip-find-options "-not -regex \".*(vendor|node_modules).*\""
+  "Extra options to pass to `find' when using `find-file-in-project'.
+
+Use this to exclude portions of your project: \"-not -regex \\\".*svn.*\\\"\".")
 
 
 (server-start)

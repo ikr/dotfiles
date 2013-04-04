@@ -13,6 +13,25 @@
 (global-hl-line-mode t)
 
 
+(global-set-key (kbd "M-]")
+    #'(lambda (arg)
+        (interactive "p")
+        (save-excursion
+            (let ((deactivate-mark nil))
+            (indent-rigidly (min (point) (mark))
+                (max (point) (mark))
+                4)))))
+
+(global-set-key (kbd "M-[")
+    #'(lambda (arg)
+        (interactive "p")
+        (save-excursion
+            (let ((deactivate-mark nil))
+            (indent-rigidly (min (point) (mark))
+                (max (point) (mark))
+                (- 4))))))
+
+
 (custom-set-variables
   '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
   '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))

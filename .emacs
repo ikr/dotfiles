@@ -62,8 +62,11 @@
 (global-set-key (kbd "C-x f") 'find-file-in-project)
 
 (defvar ffip-patterns
-  '("*.html" "*.org" "*.txt" "*.md" "*.el" "*.clj" "*.py" "*.rb" "*.js" "*.pl"
-    "*.sh" "*.erl" "*.hs" "*.ml" "*.php" "*.json" "*.sls" "*.ini" "*.conf" "*.xml")
+  '(
+    "*.html" "*.org" "*.txt" "*.md" "*.el" "*.clj" "*.py" "*.rb" "*.js" "*.pl"
+    "*.sh" "*.erl" "*.hs" "*.ml" "*.php" "*.json" "*.sls" "*.ini" "*.conf" "*.xml"
+    "*.inc" "Vagrantfile" "minion"
+   )
   "List of patterns to look for with `find-file-in-project'.")
 
 (defvar ffip-find-options "-not -path '*/vendor*'" "Extra options to pass to `find' when using find-file-in-project.")

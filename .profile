@@ -1,4 +1,4 @@
-export PATH=/Users/ikr/bin:/usr/local/bin:/usr/local/sbin:/usr/local/php-5.4.0/bin:/usr/local/Cellar/ruby/1.9.3-p327/bin:/usr/local/share/npm/bin:$PATH
+export PATH=/Users/ikr/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
 export EDITOR=emacsclient
 export NODE_PATH=/usr/local/share/npm/lib/node_modules
 export CLASSPATH=$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar

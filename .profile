@@ -53,3 +53,6 @@ done
 #sync history after every command
 shopt -s histappend
 export PROMPT_COMMAND='history -a;'
+
+export LESSOPEN="| src-hilite-lesspipe.sh %s"
+export LESS=' -R '

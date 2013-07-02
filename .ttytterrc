@@ -1,0 +1,8 @@
+readline=1
+urlopen=open -a Firefox %U
+newline=1
+simplestart=1
+verify=1
+timestamp=%k:%M
+long=8.538541
+lat=47.3935

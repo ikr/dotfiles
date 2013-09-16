@@ -1,21 +1,21 @@
 export PATH=/Users/ikr/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
 export EDITOR=emacsclient
 export NODE_PATH=/usr/local/share/npm/lib/node_modules
-export CLASSPATH=$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar
 
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 shopt -s histappend
+export PROMPT_COMMAND='history -a;'
 
 set completion-query-items 10000
 set completion-ignore-case On
-
-alias lg="git log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative"
 
 if [ -f `brew --prefix`/etc/bash_completion ]; then
     . `brew --prefix`/etc/bash_completion
 fi
 
+
+# <git-stuff>
 parse_git_branch () {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -41,6 +41,10 @@ NO_COLOUR="\[\033[0m\]"
 
 PS1="\w$YELLOW\$(parse_git_branch_or_tag)$NO_COLOUR\$ "
 
+alias lg="git log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative"
+# </git-stuff>
+
+
 # {{{
 # Node Completion - Auto-generated, do not touch.
 shopt -s progcomp
@@ -49,10 +53,6 @@ for f in $(command ls ~/.node-completion); do
   test -f "$f" && . "$f"
 done
 # }}}
-
-#sync history after every command
-shopt -s histappend
-export PROMPT_COMMAND='history -a;'
 
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
 export LESS=' -R '

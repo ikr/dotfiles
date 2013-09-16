@@ -1,0 +1,12 @@
+#!/usr/bin/php
+<?php
+
+$s = 0.0;
+
+while (true) {
+    $e = fgets(STDIN);
+    if (false === $e) break;
+    $s += $e;
+}
+
+echo "$s\n";

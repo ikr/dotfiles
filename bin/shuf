@@ -1,0 +1,9 @@
+#!/usr/bin/php -n
+<?php
+
+$input = file_get_contents('php://stdin');
+
+$input = explode("\n",$input);
+shuffle($input);
+
+echo implode("\n",$input);

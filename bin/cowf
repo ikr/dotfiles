@@ -1,0 +1,3 @@
+#!/bin/sh
+
+fortune | cowsay -f $(cowsay -l | tail +2 | tr -s " " "\012" | shuf | head -n1)

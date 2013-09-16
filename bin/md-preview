@@ -1,0 +1,4 @@
+#!/bin/bash
+
+markdown $1 > /tmp/ikr-mpreview.html
+open -a Firefox /tmp/ikr-mpreview.html

@@ -13,6 +13,7 @@
   * `shuf` -- the GNU line shuffler implemented in PHP
   * `sigma` -- sum up numbers coming from stdin
   * `url-encode`
+  * `git-report`
 
 4. TTYtter settings: `.ttytterrc`
 

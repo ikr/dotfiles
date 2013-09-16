@@ -1,9 +1,11 @@
 #!/bin/bash
 
+ME=`git config --global --get user.email`
+
 if [[ "$1" != "" ]]; then
     SINCE="$1"
 else
     SINCE="12 am"
 fi
 
-git log --pretty="* %s" --since="$SINCE" --reverse --author=ivan.krechetov
+git log --pretty="* %s" --since="$SINCE" --reverse --author="$ME" | cat -

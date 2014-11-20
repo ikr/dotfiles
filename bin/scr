@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Igor Dolgov's script adapted
+
+#config
+src_dir="/home/ikr/scr"
+file_name=$(date +"%Y-%m-%d-%H_%M_%S.png")
+full_file_name=$src_dir/$file_name
+
+HOST="xiag.ch"
+PORT="21"
+USER="share"
+PASSWD=""
+FILE=$full_file_name
+SUBDIR=""
+UFILE=$SUBDIR/$file_name
+
+#validation
+if ! [ $PASSWD ]; then
+    echo 'please specify ftp password (the variable PASSWD)';
+    exit
+fi
+if ! [ -f /usr/bin/scrot ]; then
+    echo 'please install scrot: sudo apt-get install scrot'
+    exit
+fi
+if ! [ -f /usr/bin/pinta ]; then
+    echo 'please install pinta: sudo apt-get install pinta'
+    exit
+fi
+
+#setup
+mkdir -p $src_dir
+cd $src_dir
+
+#making a screenshot
+/usr/bin/scrot -s $full_file_name
+
+#opening in the redactor
+/usr/bin/pinta $full_file_name
+
+#uploading into ftp
+ftp -n -i $HOST $PORT <<EOF
+quote USER $USER
+quote PASS $PASSWD
+bin
+put $FILE $UFILE
+quit
+EOF
+
+#opening in firefox
+firefox "www.xiag.ch/share/$SUBDIR$file_name"

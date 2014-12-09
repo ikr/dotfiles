@@ -10,7 +10,6 @@ full_file_name=$src_dir/$file_name
 HOST="xiag.ch"
 PORT="21"
 USER="share"
-PASSWD=""
 FILE=$full_file_name
 SUBDIR=""
 UFILE=$SUBDIR/$file_name

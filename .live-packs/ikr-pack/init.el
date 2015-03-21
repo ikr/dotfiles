@@ -8,3 +8,8 @@
 
 (live-add-pack-lib "pi-php-mode")
 (require 'pi-php-mode)
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)

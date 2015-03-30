@@ -13,3 +13,14 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
+
+(electric-pair-mode 1)
+(server-start)
+
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (set-fill-column 100)
+            (auto-fill-mode)))

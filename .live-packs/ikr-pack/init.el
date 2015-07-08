@@ -4,7 +4,6 @@
 ;; See README for more information.
 
 (live-load-config-file "bindings.el")
-(live-load-config-file "assoc.el")
 
 (require 'package)
 (add-to-list 'package-archives

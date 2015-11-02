@@ -1,0 +1,3 @@
+#!/bin/bash
+
+t timeline -r -n 2048 | ggrep -P '^   @\S+$' | gfgrep -v '@ikr' | sort | uniq -c | sort -nr | head -n 10

@@ -58,3 +58,5 @@ export LESSOPEN="| src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
+alias e="emacsclient -n"

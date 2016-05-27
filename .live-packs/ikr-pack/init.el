@@ -20,3 +20,5 @@
           (lambda ()
             (set-fill-column 100)
             (auto-fill-mode)))
+
+(setq sgml-basic-offset 4)

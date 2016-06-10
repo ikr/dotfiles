@@ -15,34 +15,15 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
 fi
 
 
-# <git-stuff>
-parse_git_branch () {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-parse_git_tag () {
-  git describe --tags 2> /dev/null
-}
-
-parse_git_branch_or_tag() {
-  local OUT="$(parse_git_branch)"
-
-  if [ "$OUT" == " ((no branch))" ]; then
-    OUT="[$(parse_git_tag)]";
-  fi
-
-  echo $OUT
-}
-
-RED="\[\033[0;31m\]"
+# {{{
+# Git customization
 YELLOW="\[\033[0;33m\]"
-GREEN="\[\033[0;32m\]"
 NO_COLOUR="\[\033[0m\]"
 
-PS1="\w$YELLOW\$(parse_git_branch_or_tag)$NO_COLOUR\$ "
+PS1="\w$YELLOW\$(__git_ps1)$NO_COLOUR\$ "
 
 alias lg="git log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative"
-# </git-stuff>
+# }}}
 
 
 # {{{
@@ -54,9 +35,12 @@ for f in $(command ls ~/.node-completion); do
 done
 # }}}
 
+
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
+
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
 
 alias e="emacsclient -n"

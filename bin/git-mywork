@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ME=`git config --global --get user.email`
+ME=`git config --global --get user.name`
 
 if [[ "$1" != "" ]]; then
     SINCE="$1"

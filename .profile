@@ -43,4 +43,4 @@ export LESS=' -R '
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 
 
-alias e="emacsclient -n"
+alias e="emacsclient -t"

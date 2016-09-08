@@ -1,5 +1,5 @@
 export PATH=/Users/ikr/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
-export EDITOR=emacsclient
+export EDITOR='emacsclient -t'
 export NODE_PATH=/usr/local/share/npm/lib/node_modules
 
 export HISTSIZE=1000000

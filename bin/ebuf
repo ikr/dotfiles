@@ -1,5 +1,5 @@
 #!/bin/bash
 
-emacsclient -t /tmp/ikr_emacs_scratchpad_buffer < `tty` > `tty` && \
-cat /tmp/ikr_emacs_scratchpad_buffer && \
-rm /tmp/ikr_emacs_scratchpad_buffer
+emacsclient -t /tmp/ikr_emacs_scratchpad_buffer.md < `tty` > `tty` && \
+cat /tmp/ikr_emacs_scratchpad_buffer.md && \
+rm /tmp/ikr_emacs_scratchpad_buffer.md

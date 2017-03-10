@@ -1,3 +1,5 @@
+;; Indent left, indent right
+
 (global-set-key (kbd "M-]")
     #'(lambda (arg)
         (interactive "p")
@@ -16,7 +18,7 @@
                 (max (point) (mark))
                 (- 4))))))
 
-;;--------------------------------------------------------------------------------------------------
+;; CamelCase <-> snake_case
 
 (defun mo-toggle-identifier-naming-style ()
   "Toggles the symbol at point between C-style naming,
@@ -47,7 +49,7 @@ e.g. `HelloWorldString'."
 
 (global-set-key (kbd "M--") 'mo-toggle-identifier-naming-style)
 
-;;--------------------------------------------------------------------------------------------------
+;; MELPA repository ------------------------------------------------------------
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -57,10 +59,26 @@ e.g. `HelloWorldString'."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (yaml-mode multiple-cursors))))
+ '(package-selected-packages (quote (markdown-mode php-mode yaml-mode multiple-cursors))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; Tweaking --------------------------------------------------------------------
+
+(column-number-mode)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+
+(add-to-list 'custom-theme-load-path "~/prj/emacs-color-theme-solarized/")
+(set-frame-parameter nil 'background-mode 'dark)
+(set-terminal-parameter nil 'background-mode 'dark)
+(load-theme 'solarized t)
+
+(set-face-attribute 'default nil :height 100)

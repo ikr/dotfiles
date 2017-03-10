@@ -83,4 +83,7 @@ e.g. `HelloWorldString'."
 (set-terminal-parameter nil 'background-mode 'dark)
 (load-theme 'solarized t)
 
-(set-face-attribute 'default nil :height 110)
+(set-face-attribute 'default nil
+		    :family "mononoki"
+		    :height 110
+		    :weight 'bold)

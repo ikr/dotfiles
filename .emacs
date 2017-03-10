@@ -72,6 +72,7 @@ e.g. `HelloWorldString'."
 ;; Tweaking --------------------------------------------------------------------
 
 (setq make-backup-files nil)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (column-number-mode)
 (tool-bar-mode -1)

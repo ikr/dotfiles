@@ -69,6 +69,8 @@ e.g. `HelloWorldString'."
 
 ;; Tweaking --------------------------------------------------------------------
 
+(setq make-backup-files nil)
+
 (column-number-mode)
 (tool-bar-mode -1)
 (menu-bar-mode -1)

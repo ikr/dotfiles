@@ -99,3 +99,5 @@ e.g. `HelloWorldString'."
 (editorconfig-mode 1)
 
 (global-undo-tree-mode)
+
+(show-paren-mode 1)

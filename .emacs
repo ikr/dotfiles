@@ -94,3 +94,6 @@ e.g. `HelloWorldString'."
 
 (ac-config-default)
 (auto-complete-mode)
+
+(setq-default indent-tabs-mode nil)
+(editorconfig-mode 1)

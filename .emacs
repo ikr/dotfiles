@@ -62,7 +62,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (rjsx-mode editorconfig auto-complete markdown-mode php-mode yaml-mode multiple-cursors))))
+    (undo-tree rjsx-mode editorconfig auto-complete markdown-mode php-mode yaml-mode multiple-cursors))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -97,3 +97,5 @@ e.g. `HelloWorldString'."
 
 (setq-default indent-tabs-mode nil)
 (editorconfig-mode 1)
+
+(global-undo-tree-mode)

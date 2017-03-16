@@ -62,7 +62,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (undo-tree rjsx-mode editorconfig auto-complete markdown-mode php-mode yaml-mode multiple-cursors))))
+    (zenburn-theme undo-tree rjsx-mode editorconfig auto-complete markdown-mode php-mode yaml-mode multiple-cursors))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -82,10 +82,7 @@ e.g. `HelloWorldString'."
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
-(add-to-list 'custom-theme-load-path "~/prj/emacs-color-theme-solarized/")
-(set-frame-parameter nil 'background-mode 'dark)
-(set-terminal-parameter nil 'background-mode 'dark)
-(load-theme 'solarized t)
+(load-theme 'zenburn t)
 
 (set-face-attribute 'default nil
 		    :family "mononoki"

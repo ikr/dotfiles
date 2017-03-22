@@ -100,4 +100,3 @@ e.g. `HelloWorldString'."
 
 (global-undo-tree-mode)
 (show-paren-mode 1)
-(js2-mode-hide-warnings-and-errors)

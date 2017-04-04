@@ -62,7 +62,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (leuven-theme flatui-theme organic-green-theme zenburn-theme undo-tree rjsx-mode editorconfig auto-complete markdown-mode php-mode yaml-mode multiple-cursors))))
+    (lua-mode leuven-theme flatui-theme organic-green-theme zenburn-theme undo-tree rjsx-mode editorconfig auto-complete markdown-mode php-mode yaml-mode multiple-cursors))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

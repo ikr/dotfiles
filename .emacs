@@ -101,5 +101,6 @@ e.g. `HelloWorldString'."
 (global-undo-tree-mode)
 (show-paren-mode 1)
 
+(require 'window-number)
 (window-number-mode)
 (window-number-meta-mode)

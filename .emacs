@@ -92,6 +92,8 @@ e.g. `HelloWorldString'."
 		    :height 110
 		    :weight 'bold)
 
+(global-hl-line-mode 1)
+
 (ac-config-default)
 (auto-complete-mode)
 

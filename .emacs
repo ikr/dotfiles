@@ -1,6 +1,6 @@
 ;; Indent left, indent right
 
-(global-set-key (kbd "M-]")
+(global-set-key (kbd "C-M-]")
     #'(lambda (arg)
         (interactive "p")
         (save-excursion
@@ -9,7 +9,7 @@
                 (max (point) (mark))
                 4)))))
 
-(global-set-key (kbd "M-[")
+(global-set-key (kbd "C-M-[")
     #'(lambda (arg)
         (interactive "p")
         (save-excursion

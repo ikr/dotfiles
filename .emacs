@@ -62,7 +62,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (window-number lua-mode leuven-theme flatui-theme organic-green-theme zenburn-theme undo-tree rjsx-mode editorconfig auto-complete markdown-mode php-mode yaml-mode multiple-cursors))))
+    (elm-mode window-number lua-mode leuven-theme flatui-theme organic-green-theme zenburn-theme undo-tree rjsx-mode editorconfig auto-complete markdown-mode php-mode yaml-mode multiple-cursors))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -74,6 +74,9 @@ e.g. `HelloWorldString'."
 
 (setq make-backup-files nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(setq exec-path (append exec-path '("/home/ikr/bin")))
+(setq elm-format-on-save t)
 
 (column-number-mode)
 (tool-bar-mode -1)

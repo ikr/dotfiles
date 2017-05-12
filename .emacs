@@ -62,7 +62,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (elm-mode window-number lua-mode leuven-theme flatui-theme organic-green-theme zenburn-theme undo-tree rjsx-mode editorconfig auto-complete markdown-mode php-mode yaml-mode multiple-cursors))))
+    (company jinja2-mode elm-mode window-number lua-mode leuven-theme flatui-theme organic-green-theme zenburn-theme undo-tree rjsx-mode editorconfig markdown-mode php-mode yaml-mode multiple-cursors))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -97,8 +97,9 @@ e.g. `HelloWorldString'."
 
 (global-hl-line-mode 1)
 
-(ac-config-default)
-(auto-complete-mode)
+(require 'company)
+(add-to-list 'company-backends 'company-elm)
+(add-hook 'after-init-hook 'global-company-mode)
 
 (setq-default indent-tabs-mode nil)
 (editorconfig-mode 1)

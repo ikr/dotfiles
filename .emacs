@@ -81,6 +81,7 @@ e.g. `HelloWorldString'."
 (column-number-mode)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(delete-selection-mode 1)
 
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))

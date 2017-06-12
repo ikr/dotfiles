@@ -74,8 +74,6 @@ e.g. `HelloWorldString'."
 
 (setq make-backup-files nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(setq exec-path (append exec-path '("/home/ikr/bin")))
 (setq elm-format-on-save t)
 
 (column-number-mode)

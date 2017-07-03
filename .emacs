@@ -121,3 +121,5 @@ e.g. `HelloWorldString'."
 
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . vc-git-log-edit-mode))
 (add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
+
+(server-start)

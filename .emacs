@@ -62,7 +62,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (company jinja2-mode elm-mode window-number lua-mode leuven-theme flatui-theme organic-green-theme zenburn-theme undo-tree rjsx-mode editorconfig markdown-mode php-mode yaml-mode multiple-cursors))))
+    (company jinja2-mode elm-mode window-number lua-mode zenburn-theme undo-tree rjsx-mode editorconfig markdown-mode php-mode yaml-mode multiple-cursors))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -85,9 +85,6 @@ e.g. `HelloWorldString'."
   (windmove-default-keybindings))
 
 (load-theme 'zenburn t)
-;; (load-theme 'organic-green t)
-;; (load-theme 'flatui t)
-;; (load-theme 'leuven t)
 
 (set-face-attribute 'default nil
 		    :family "mononoki"

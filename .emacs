@@ -106,3 +106,18 @@ e.g. `HelloWorldString'."
 (require 'window-number)
 (window-number-mode)
 (window-number-meta-mode)
+
+(setq-default fill-column 100)
+
+(add-hook 'markdown-mode-hook
+  (lambda ()
+    (flyspell-mode)
+  ))
+
+(add-hook 'vc-git-log-edit-mode-hook
+  (lambda ()
+    (flyspell-mode)
+  ))
+
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . vc-git-log-edit-mode))
+(add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))

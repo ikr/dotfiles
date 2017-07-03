@@ -119,6 +119,8 @@ e.g. `HelloWorldString'."
     (flyspell-mode)
   ))
 
+(require 'log-edit)
+(require 'vc-git)
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . vc-git-log-edit-mode))
 (add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
 

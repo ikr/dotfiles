@@ -44,3 +44,5 @@ export LESS=' -R '
 
 
 alias e="emacsclient"
+alias xc="xclip -sel clip"
+alias xp="xclip -o -sel clip"

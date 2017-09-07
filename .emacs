@@ -117,6 +117,7 @@ e.g. `HelloWorldString'."
 (add-hook 'vc-git-log-edit-mode-hook
   (lambda ()
     (flyspell-mode)
+    (setq-local company-dabbrev-downcase nil)
   ))
 
 (require 'log-edit)

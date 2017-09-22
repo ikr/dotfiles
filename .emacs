@@ -18,6 +18,24 @@
                 (max (point) (mark))
                 (- 4))))))
 
+(global-set-key (kbd "C-M-}")
+    #'(lambda (arg)
+        (interactive "p")
+        (save-excursion
+            (let ((deactivate-mark nil))
+            (indent-rigidly (min (point) (mark))
+                (max (point) (mark))
+                2)))))
+
+(global-set-key (kbd "C-M-{")
+    #'(lambda (arg)
+        (interactive "p")
+        (save-excursion
+            (let ((deactivate-mark nil))
+            (indent-rigidly (min (point) (mark))
+                (max (point) (mark))
+                (- 2))))))
+
 ;; CamelCase <-> snake_case
 
 (defun mo-toggle-identifier-naming-style ()

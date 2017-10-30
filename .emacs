@@ -91,6 +91,9 @@ e.g. `HelloWorldString'."
 ;; Tweaking --------------------------------------------------------------------
 
 (setq make-backup-files nil)
+(setq visible-bell 1)
+(setq ring-bell-function 'ignore)
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq elm-format-on-save t)
 

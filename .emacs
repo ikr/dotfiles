@@ -118,10 +118,7 @@ e.g. `HelloWorldString'."
 (add-to-list 'company-backends 'company-elm)
 (add-hook 'after-init-hook 'global-company-mode)
 
-(setq cider-cljs-lein-repl
-    "(do (require 'figwheel-sidecar.repl-api)
-         (figwheel-sidecar.repl-api/start-figwheel!)
-         (figwheel-sidecar.repl-api/cljs-repl))")
+(setq exec-path (append exec-path '("/home/ikr/bin")))
 
 (setq-default indent-tabs-mode nil)
 (editorconfig-mode 1)

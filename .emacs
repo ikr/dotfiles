@@ -117,6 +117,7 @@ e.g. `HelloWorldString'."
 (require 'company)
 (add-to-list 'company-backends 'company-elm)
 (add-hook 'after-init-hook 'global-company-mode)
+(setq company-dabbrev-downcase nil)
 
 (setq exec-path (append exec-path '("/home/ikr/bin")))
 
@@ -139,9 +140,7 @@ e.g. `HelloWorldString'."
 
 (add-hook 'vc-git-log-edit-mode-hook
   (lambda ()
-    (flyspell-mode)
-    (setq-local company-dabbrev-downcase nil)
-  ))
+    (flyspell-mode)))
 
 (require 'log-edit)
 (require 'vc-git)

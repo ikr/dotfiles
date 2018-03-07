@@ -147,8 +147,8 @@ e.g. `HelloWorldString'."
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . vc-git-log-edit-mode))
 (add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("react-.*\\/.*\\/.*\\.js\\'" . rjsx-mode))
-(add-hook 'js-mode-hook 'js2-minor-mode)
 (js2-mode-hide-warnings-and-errors)
 
 (autoload

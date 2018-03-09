@@ -4,14 +4,8 @@ if [ $# -eq 2 ]
 then
     emacsclient --eval "(window-number-select $1)" > /dev/null
     emacsclient -n $2
-elif [ $# -eq 4 ]
-then
-    for i in {1..4}
-    do
-        emacsclient --eval "(window-number-select $i)" > /dev/null
-        emacsclient -n ${!i}
-    done
 else
-    echo "Usage: en <WIN-NUM> <FILE>"
+    echo 'Usage: en <WIN-NUM> <FILE>'
+    echo 'Sends the <FILE> to Emacs windows No. <WIN-NUM>'
     exit 1
 fi

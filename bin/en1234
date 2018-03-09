@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ $# -eq 4 ]
+then
+    for i in {1..4}
+    do
+        emacsclient --eval "(window-number-select $i)" > /dev/null
+        emacsclient -n ${!i}
+    done
+else
+    echo 'Usage: en1234 <FILE1> <FILE2> <FILE3> <FILE4>'
+    echo 'Sends 4 files to Emacs windows No. 1—4'
+    exit 1
+fi

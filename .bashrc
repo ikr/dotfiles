@@ -119,9 +119,9 @@ PS1="\w$YELLOW\$(__git_ps1)$NO_COLOUR\$ "
 
 . /usr/share/autojump/autojump.sh
 
-alias e="emacsclient"
-alias xc="xclip -sel clip"
-alias xp="xclip -o -sel clip"
+alias e='emacsclient'
+alias xc='xclip -sel clip'
+alias xp='xclip -o -sel clip'
 
 export PATH=$PATH:/home/ikr/bin:/home/ikr/.go/bin
 export EDITOR='emacsclient -t'

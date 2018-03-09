@@ -122,6 +122,7 @@ PS1="\w$YELLOW\$(__git_ps1)$NO_COLOUR\$ "
 alias e='emacsclient'
 alias xc='xclip -sel clip'
 alias xp='xclip -o -sel clip'
+alias sohi='source-highlight -f esc -s'
 
 export PATH=$PATH:/home/ikr/bin:/home/ikr/.go/bin
 export EDITOR='emacsclient -t'

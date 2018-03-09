@@ -5,7 +5,8 @@ then
     for i in {3..4}
     do
         emacsclient --eval "(window-number-select $i)" > /dev/null
-        emacsclient -n ${!i}
+        j=$(( i - 2 ))
+        emacsclient -n ${!j}
     done
 else
     echo 'Usage: en34 <FILE1> <FILE2>'

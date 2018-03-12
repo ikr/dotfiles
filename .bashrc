@@ -123,6 +123,7 @@ alias e='emacsclient'
 alias xc='xclip -sel clip'
 alias xp='xclip -o -sel clip'
 alias sohi='source-highlight -f esc -s'
+alias fgr='grep -Fr --exclude-dir={.git,node_modules,vendor,www,dist,build,coverage}'
 
 export PATH=$PATH:/home/ikr/bin:/home/ikr/.go/bin
 export EDITOR='emacsclient -t'

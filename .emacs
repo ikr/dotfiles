@@ -122,6 +122,7 @@ e.g. `HelloWorldString'."
 (setq exec-path (append exec-path '("/home/ikr/bin")))
 
 (setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
 (editorconfig-mode 1)
 
 (global-undo-tree-mode)

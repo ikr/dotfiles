@@ -1,4 +1,4 @@
-;; Indent left, indent right
+;; Indent left, indent right ---------------------------------------------------
 
 (global-set-key (kbd "C-M-]")
     #'(lambda (arg)
@@ -36,7 +36,7 @@
                 (max (point) (mark))
                 (- 2))))))
 
-;; CamelCase <-> snake_case
+;; CamelCase <-> snake_case ----------------------------------------------------
 
 (defun mo-toggle-identifier-naming-style ()
   "Toggles the symbol at point between C-style naming,
@@ -88,52 +88,27 @@ e.g. `HelloWorldString'."
  ;; If there is more than one, they won't work right.
  )
 
-;; Tweaking --------------------------------------------------------------------
+;; Tweaking of built-ins -------------------------------------------------------
 
 (setq make-backup-files nil)
 (setq visible-bell 1)
 (setq ring-bell-function 'ignore)
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(setq elm-format-on-save t)
-
 (column-number-mode)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (delete-selection-mode 1)
-
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
-
-(load-theme 'zenburn t)
-
-(set-face-attribute 'default nil
-		    :family "mononoki"
-		    :height 110
-		    :weight 'bold)
-
 (global-hl-line-mode 1)
-
-(require 'company)
-(add-to-list 'company-backends 'company-elm)
-(add-hook 'after-init-hook 'global-company-mode)
-(setq company-dabbrev-downcase nil)
-
-(setq exec-path (append exec-path '("/home/ikr/bin")))
-
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq-default graphviz-dot-auto-indent-on-semi nil)
-(editorconfig-mode 1)
-
 (global-undo-tree-mode)
 (show-paren-mode 1)
-
-(require 'window-number)
-(window-number-mode)
-(window-number-meta-mode)
-
 (setq-default fill-column 100)
+(setq exec-path (append exec-path '("/home/ikr/bin")))
+
+;; Hooks -----------------------------------------------------------------------
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(setq elm-format-on-save t)
 
 (add-hook 'markdown-mode-hook
   (lambda ()
@@ -144,13 +119,10 @@ e.g. `HelloWorldString'."
   (lambda ()
     (flyspell-mode)))
 
-(require 'log-edit)
-(require 'vc-git)
-(require 'js2-mode)
-(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . vc-git-log-edit-mode))
-(add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
-(js2-mode-hide-warnings-and-errors)
+;; Key bindings ----------------------------------------------------------------
+
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
 
 (autoload
   'ace-jump-mode
@@ -164,5 +136,42 @@ e.g. `HelloWorldString'."
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
-(server-start)
+;; Theme -----------------------------------------------------------------------
+
+(load-theme 'zenburn t)
+(set-face-attribute 'default nil
+		    :family "mononoki"
+		    :height 110
+		    :weight 'bold)
+
+;; Autocomplete ----------------------------------------------------------------
+
+(require 'company)
+(add-to-list 'company-backends 'company-elm)
+(add-hook 'after-init-hook 'global-company-mode)
+(setq company-dabbrev-downcase nil)
+
+;; JavaScript ------------------------------------------------------------------
+
+(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
+(require 'js2-mode)
+(js2-mode-hide-warnings-and-errors)
+
+;; Misc. modes tweaking --------------------------------------------------------
+
+(setq-default graphviz-dot-auto-indent-on-semi nil)
+(editorconfig-mode 1)
+
+(require 'window-number)
+(window-number-mode)
+(window-number-meta-mode)
+
+(require 'log-edit)
+(require 'vc-git)
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . vc-git-log-edit-mode))
+(add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
 (bash-completion-setup)
+
+;; -----------------------------------------------------------------------------
+
+(server-start)

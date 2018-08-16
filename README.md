@@ -1,22 +1,9 @@
-# My personal shell and tools configuration
+# About
 
-## Contents
+My personal shell and tools configuration
 
-1. `.profile`
+# License
 
-2. ikr-pack for emacs-live: `.live-packs`
+[MIT](http://opensource.org/licenses/MIT)
 
-3. `~/bin` utilities
-  * `cowf` -- fortune + cowsay :)
-  * `json-encode-string`
-  * `md-preview` -- view a Markdown file in HTML
-  * `shuf` -- the GNU line shuffler implemented in PHP
-  * `sigma` -- sum up numbers coming from stdin
-  * `url-encode`
-  * `git-report`
-
-4. TTYtter settings: `.ttytterrc`
-
-## License: MIT
-
-[Copyright (c) 2013](http://opensource.org/licenses/MIT) Ivan Krechetov
+Copyrigh (c) 2013 by Ivan Krechetov

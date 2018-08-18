@@ -128,3 +128,7 @@ alias fgr='grep -Fr --exclude-dir={.git,node_modules,vendor,www,dist,build,cover
 export PATH=$PATH:/home/ikr/bin:/home/ikr/.go/bin
 export EDITOR='emacsclient -t'
 export GOPATH=/home/ikr/.go
+
+if [ -f ~/.config/exercism/exercism_completion.bash ]; then
+    source ~/.config/exercism/exercism_completion.bash
+fi

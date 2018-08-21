@@ -80,7 +80,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (groovy-mode kotlin-mode tide graphviz-dot-mode bash-completion cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme undo-tree rjsx-mode editorconfig markdown-mode php-mode yaml-mode multiple-cursors))))
+    (persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode bash-completion cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme undo-tree rjsx-mode editorconfig markdown-mode php-mode yaml-mode multiple-cursors))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -204,6 +204,7 @@ e.g. `HelloWorldString'."
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . vc-git-log-edit-mode))
 (add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
 (bash-completion-setup)
+(persistent-scratch-setup-default)
 
 ;; -----------------------------------------------------------------------------
 

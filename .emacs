@@ -80,7 +80,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode bash-completion cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme undo-tree rjsx-mode editorconfig markdown-mode php-mode yaml-mode multiple-cursors))))
+    (prettier-js persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode bash-completion cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme undo-tree rjsx-mode editorconfig markdown-mode php-mode yaml-mode multiple-cursors))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -176,8 +176,6 @@ e.g. `HelloWorldString'."
 (setq web-mode-auto-quote-style 2)
 
 ;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
-
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 (require 'web-mode)
@@ -186,6 +184,11 @@ e.g. `HelloWorldString'."
           (lambda ()
             (when (string-equal "tsx" (file-name-extension buffer-file-name))
               (setup-tide-mode))))
+
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
+(add-hook 'tide-mode-hook 'prettier-js-mode)
+
 ;; enable typescript-tslint checker
 (require 'flycheck)
 (flycheck-add-mode 'typescript-tslint 'web-mode)

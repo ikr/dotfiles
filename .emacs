@@ -118,7 +118,9 @@ e.g. `HelloWorldString'."
 
 (add-hook 'vc-git-log-edit-mode-hook
   (lambda ()
-    (flyspell-mode)))
+    (flyspell-mode)
+    (setq fill-column 72)
+    (turn-on-auto-fill)))
 
 ;; Key bindings ----------------------------------------------------------------
 

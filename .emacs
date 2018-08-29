@@ -105,6 +105,7 @@ e.g. `HelloWorldString'."
 (show-paren-mode 1)
 (setq-default fill-column 100)
 (setq exec-path (append exec-path '("/home/ikr/bin")))
+(desktop-save-mode 1)
 
 ;; Hooks -----------------------------------------------------------------------
 

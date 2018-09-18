@@ -113,6 +113,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+PROMPT_DIRTRIM=3
 YELLOW="\[\033[0;33m\]"
 NO_COLOUR="\[\033[0m\]"
 PS1="\w$YELLOW\$(__git_ps1)$NO_COLOUR\$ "

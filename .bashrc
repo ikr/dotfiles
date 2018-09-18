@@ -122,7 +122,7 @@ PS1="\w$YELLOW\$(__git_ps1)$NO_COLOUR\$ "
 alias e='emacsclient'
 alias xc='xclip -sel clip'
 alias xp='xclip -o -sel clip'
-alias fgr='grep -Fr --exclude-dir={.git,node_modules,vendor,www,dist,build,coverage,.gradle,.idea,log} --exclude={package-lock.json,*.class}'
+alias fgr='grep -Fr --exclude-dir={.git,node_modules,vendor,www,dist,build,coverage,.gradle,.idea,log,apispec} --exclude={package-lock.json,*.class}'
 
 export PATH=$PATH:/home/ikr/bin:/home/ikr/.go/bin
 export EDITOR='emacsclient -t'

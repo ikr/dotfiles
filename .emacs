@@ -107,6 +107,7 @@ e.g. `HelloWorldString'."
 (setq exec-path (append exec-path '("/home/ikr/bin")))
 (desktop-save-mode 1)
 (global-auto-revert-mode t)
+(global-unset-key (kbd "C-z"))
 
 ;; Hooks -----------------------------------------------------------------------
 

@@ -198,6 +198,8 @@ e.g. `HelloWorldString'."
 (require 'flycheck)
 (flycheck-add-mode 'typescript-tslint 'web-mode)
 
+(global-set-key (kbd "M-&") 'tide-references)
+
 ;; Misc. modes tweaking --------------------------------------------------------
 
 (setq-default graphviz-dot-auto-indent-on-semi nil)

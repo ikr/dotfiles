@@ -199,6 +199,7 @@ e.g. `HelloWorldString'."
 (flycheck-add-mode 'typescript-tslint 'web-mode)
 
 (global-set-key (kbd "M-&") 'tide-references)
+(global-set-key (kbd "M-") 'tide-fix)
 
 ;; Misc. modes tweaking --------------------------------------------------------
 

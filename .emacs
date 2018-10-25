@@ -142,6 +142,12 @@ e.g. `HelloWorldString'."
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+(defun insert-jira-issue-id ()
+  (interactive)
+  (insert (shell-command-to-string "jira-prefix")))
+
+(global-set-key (kbd "C-c C-j") 'insert-jira-issue-id)
+
 ;; Theme -----------------------------------------------------------------------
 
 (load-theme 'zenburn t)

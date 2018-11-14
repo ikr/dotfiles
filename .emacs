@@ -206,6 +206,9 @@ e.g. `HelloWorldString'."
 
 (global-set-key (kbd "M-&") 'tide-references)
 (global-set-key (kbd "M-RET") 'tide-fix)
+(global-set-key (kbd "C-M-m") 'tide-refactor)
+(global-set-key (kbd "C-M-o") 'tide-organize-imports)
+(global-set-key [(shift f6)] 'tide-rename-symbol)
 
 ;; Misc. modes tweaking --------------------------------------------------------
 

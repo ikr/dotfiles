@@ -125,6 +125,11 @@ e.g. `HelloWorldString'."
     (setq fill-column 72)
     (turn-on-auto-fill)))
 
+;; Macros ----------------------------------------------------------------------
+
+(fset 'import-react-js
+   [?i ?m ?p ?o ?r ?t ?  ?* ?  ?a ?s ?  ?R ?e ?a ?c ?t ?  ?f ?r ?o ?m ?  ?\' ?r ?e ?a ?c ?t ?\' return])
+
 ;; Key bindings ----------------------------------------------------------------
 
 (when (fboundp 'windmove-default-keybindings)

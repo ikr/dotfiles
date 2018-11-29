@@ -130,6 +130,9 @@ e.g. `HelloWorldString'."
 (fset 'import-react-js
    [?i ?m ?p ?o ?r ?t ?  ?* ?  ?a ?s ?  ?R ?e ?a ?c ?t ?  ?f ?r ?o ?m ?  ?\' ?r ?e ?a ?c ?t ?\' return])
 
+(fset 'import-assert
+   [?i ?m ?p ?o ?r ?t ?  ?* ?  ?a ?s ?  ?a ?s ?s ?e ?r ?t ?  ?f ?r ?o ?m ?  ?\' ?a ?s ?s ?e ?r ?t ?\C-e return])
+
 ;; Key bindings ----------------------------------------------------------------
 
 (when (fboundp 'windmove-default-keybindings)
@@ -158,7 +161,7 @@ e.g. `HelloWorldString'."
 (load-theme 'zenburn t)
 (set-face-attribute 'default nil
 		    :family "mononoki"
-		    :height 110
+		    :height 100
 		    :weight 'bold)
 
 ;; Autocomplete ----------------------------------------------------------------

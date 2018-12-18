@@ -108,6 +108,7 @@ e.g. `HelloWorldString'."
 (desktop-save-mode 1)
 (global-auto-revert-mode t)
 (global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-z"))
 
 ;; Hooks -----------------------------------------------------------------------
 
@@ -161,7 +162,7 @@ e.g. `HelloWorldString'."
 (load-theme 'zenburn t)
 (set-face-attribute 'default nil
 		    :family "mononoki"
-		    :height 100
+		    :height 110
 		    :weight 'bold)
 
 ;; Autocomplete ----------------------------------------------------------------

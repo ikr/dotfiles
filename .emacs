@@ -91,7 +91,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (flycheck-kotlin prettier-js persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode bash-completion cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme undo-tree rjsx-mode editorconfig markdown-mode php-mode yaml-mode multiple-cursors))))
+    (clang-format flycheck-kotlin prettier-js persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode bash-completion cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme undo-tree rjsx-mode editorconfig markdown-mode php-mode yaml-mode multiple-cursors))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -167,13 +167,15 @@ e.g. `HelloWorldString'."
   (insert (shell-command-to-string "jira-prefix")))
 
 (global-set-key (kbd "C-c C-j") 'insert-jira-issue-id)
+(global-set-key (kbd "C-M-|") 'clang-format-buffer)
+
 
 ;; Theme -----------------------------------------------------------------------
 
 (load-theme 'zenburn t)
 (set-face-attribute 'default nil
 		    :family "mononoki"
-		    :height 110
+		    :height 100
 		    :weight 'bold)
 
 ;; Autocomplete ----------------------------------------------------------------

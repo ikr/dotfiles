@@ -175,7 +175,7 @@ e.g. `HelloWorldString'."
 (load-theme 'zenburn t)
 (set-face-attribute 'default nil
 		    :family "mononoki"
-		    :height 100
+		    :height 110
 		    :weight 'bold)
 
 ;; Autocomplete ----------------------------------------------------------------
@@ -206,7 +206,7 @@ e.g. `HelloWorldString'."
 (setq company-tooltip-align-annotations t)
 
 ;; single quotes instead of the default double quotes
-(setq web-mode-auto-quote-style 2)
+(setq web-mode-auto-quote-style nil)
 
 ;; formats the buffer before saving
 (add-hook 'typescript-mode-hook #'setup-tide-mode)

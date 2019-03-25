@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+
+import sys
+
+if len(sys.argv) < 2:
+    sys.exit()
+
+MAX_LEN = 24
+
+def do_format(s):
+    if len(s) < 21:
+        return " (" + s + ")"
+
+    return " (" + s[0:MAX_LEN // 2] + "…" + s[-MAX_LEN // 2:] + ")"
+
+
+print(do_format(sys.argv[1]))

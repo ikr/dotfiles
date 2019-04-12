@@ -116,7 +116,7 @@ fi
 PROMPT_DIRTRIM=3
 YELLOW="\[\033[0;33m\]"
 NO_COLOUR="\[\033[0m\]"
-PS1="\w$YELLOW\$(format_branch \$(__git_ps1 '%s'))$NO_COLOUR\$ "
+PS1="\w$YELLOW\$(format_branch \$(__git_ps1 '%s') 2> /dev/null)$NO_COLOUR\$ "
 
 . /usr/share/autojump/autojump.sh
 

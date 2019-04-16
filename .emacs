@@ -175,7 +175,7 @@ e.g. `HelloWorldString'."
 (load-theme 'zenburn t)
 (set-face-attribute 'default nil
 		    :family "mononoki"
-		    :height 110
+		    :height 95
 		    :weight 'bold)
 
 ;; Autocomplete ----------------------------------------------------------------

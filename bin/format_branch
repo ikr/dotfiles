@@ -8,7 +8,7 @@ if len(sys.argv) < 2:
 MAX_LEN = 24
 
 def do_format(s):
-    if len(s) < 21:
+    if len(s) <= MAX_LEN + 1 :
         return " (" + s + ")"
 
     return " (" + s[0:MAX_LEN // 2] + "…" + s[-MAX_LEN // 2:] + ")"

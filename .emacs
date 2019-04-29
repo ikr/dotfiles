@@ -135,7 +135,8 @@ e.g. `HelloWorldString'."
   (lambda ()
     (flyspell-mode)
     (setq fill-column 72)
-    (turn-on-auto-fill)))
+    (turn-on-auto-fill)
+    (local-set-key (kbd "C-c C-c") 'mc/edit-lines)))
 
 ;; Macros ----------------------------------------------------------------------
 

@@ -280,6 +280,7 @@ e.g. `HelloWorldString'."
 (require 'log-edit)
 (require 'vc-git)
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . vc-git-log-edit-mode))
+(add-to-list 'auto-mode-alist '("git-rebase-todo\\'" . vc-git-log-edit-mode))
 (add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode))
 (bash-completion-setup)
 (persistent-scratch-setup-default)

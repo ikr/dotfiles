@@ -4,3 +4,4 @@ ktlint
 exercism
 wal-g
 import_s3_prod_dump
+restore_s3_prod_dump

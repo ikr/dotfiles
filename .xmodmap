@@ -1,0 +1,7 @@
+keycode 66 = NoSymbol NoSymbol
+keycode 66 = Mode_switch
+
+keysym h = h H Left NoSymbol NoSymbol NoSymbol
+keysym j = j J Down NoSymbol NoSymbol NoSymbol
+keysym k = k K Up NoSymbol NoSymbol NoSymbol
+keysym l = l L Right NoSymbol NoSymbol NoSymbol

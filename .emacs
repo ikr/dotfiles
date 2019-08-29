@@ -91,7 +91,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (org clang-format flycheck-kotlin prettier-js persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme undo-tree rjsx-mode editorconfig markdown-mode php-mode yaml-mode multiple-cursors))))
+    (org clang-format flycheck-kotlin prettier-js persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme undo-tree editorconfig markdown-mode php-mode yaml-mode multiple-cursors))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -187,12 +187,6 @@ e.g. `HelloWorldString'."
 (add-hook 'after-init-hook 'global-company-mode)
 (setq company-dabbrev-downcase nil)
 
-;; JavaScript ------------------------------------------------------------------
-
-(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
-(require 'js2-mode)
-(js2-mode-hide-warnings-and-errors)
-
 ;; TypeScript ------------------------------------------------------------------
 
 (defun setup-tide-mode ()
@@ -220,7 +214,6 @@ e.g. `HelloWorldString'."
             (when (string-equal "tsx" (file-name-extension buffer-file-name))
               (setup-tide-mode))))
 
-(add-hook 'js2-mode-hook 'prettier-js-mode)
 (add-hook 'web-mode-hook 'prettier-js-mode)
 (add-hook 'tide-mode-hook 'prettier-js-mode)
 

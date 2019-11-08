@@ -146,6 +146,9 @@ e.g. `HelloWorldString'."
 (fset 'import-assert
    [?i ?m ?p ?o ?r ?t ?  ?* ?  ?a ?s ?  ?a ?s ?s ?e ?r ?t ?  ?f ?r ?o ?m ?  ?\' ?a ?s ?s ?e ?r ?t ?\C-e return])
 
+(fset 'insert-localized
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([60 76 111 99 97 108 105 122 101 100 32 100 101 61 34 6 32 102 114 61 34 6 32 105 114 backspace 116 61 34 5 32 101 110 61 34 5 47 62] 0 "%d")) arg)))
+
 ;; Key bindings ----------------------------------------------------------------
 
 (when (fboundp 'windmove-default-keybindings)

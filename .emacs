@@ -91,7 +91,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (org clang-format flycheck-kotlin prettier-js persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme undo-tree editorconfig markdown-mode php-mode yaml-mode multiple-cursors web-mode))))
+    (org clang-format flycheck-kotlin prettier-js persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme editorconfig markdown-mode php-mode yaml-mode multiple-cursors web-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -112,7 +112,6 @@ e.g. `HelloWorldString'."
 (global-hl-line-mode 1)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(global-undo-tree-mode)
 (show-paren-mode 1)
 (setq-default fill-column 100)
 (setq exec-path (append exec-path '("/home/ikr/bin")))

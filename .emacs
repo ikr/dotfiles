@@ -175,6 +175,10 @@ e.g. `HelloWorldString'."
 
 (global-set-key (kbd "C-c C-j") 'insert-jira-issue-id)
 
+(global-set-key
+ (kbd "C-M-|")
+ '(lambda () (interactive) (shell-command (concat "prettier --write " (buffer-file-name)))))
+
 ;; Theme -----------------------------------------------------------------------
 
 (load-theme 'zenburn t)

@@ -91,7 +91,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (clang-format flycheck-kotlin persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme editorconfig markdown-mode php-mode yaml-mode multiple-cursors web-mode))))
+    (persistent-scratch groovy-mode tide ace-jump-mode company window-number zenburn-theme editorconfig markdown-mode yaml-mode multiple-cursors web-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

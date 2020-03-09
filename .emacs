@@ -91,7 +91,7 @@ e.g. `HelloWorldString'."
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (org clang-format flycheck-kotlin prettier-js persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme editorconfig markdown-mode php-mode yaml-mode multiple-cursors web-mode))))
+    (clang-format flycheck-kotlin persistent-scratch groovy-mode kotlin-mode tide graphviz-dot-mode cider ace-jump-mode company jinja2-mode elm-mode window-number lua-mode zenburn-theme editorconfig markdown-mode php-mode yaml-mode multiple-cursors web-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -174,15 +174,13 @@ e.g. `HelloWorldString'."
   (insert (shell-command-to-string "jira-prefix")))
 
 (global-set-key (kbd "C-c C-j") 'insert-jira-issue-id)
-(global-set-key (kbd "C-M-|") 'clang-format-buffer)
-
 
 ;; Theme -----------------------------------------------------------------------
 
 (load-theme 'zenburn t)
 (set-face-attribute 'default nil
 		    :family "mononoki"
-		    :height 95
+		    :height 110
 		    :weight 'bold)
 
 ;; Autocomplete ----------------------------------------------------------------
@@ -219,13 +217,10 @@ e.g. `HelloWorldString'."
             (when (string-equal "tsx" (file-name-extension buffer-file-name))
               (setup-tide-mode))))
 
-(add-hook 'web-mode-hook 'prettier-js-mode)
-(add-hook 'tide-mode-hook 'prettier-js-mode)
-(add-hook 'js-mode-hook 'prettier-js-mode)
-
 ;; enable typescript-tslint checker
 (require 'flycheck)
 (flycheck-add-mode 'typescript-tslint 'web-mode)
+(add-hook 'before-save-hook 'tide-format-before-save)
 
 (global-set-key (kbd "M-&") 'tide-references)
 (global-set-key (kbd "M-RET") 'tide-fix)

@@ -11,9 +11,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (clang-format company-lsp lsp-treemacs lsp-ui editorconfig lsp-mode multiple-cursors ace-jump-mode zenburn-theme))))
+    (editorconfig flycheck lsp-ui lsp-treemacs company-lsp lsp-mode zenburn-theme multiple-cursors ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -40,7 +41,7 @@
 (global-auto-revert-mode t)
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
-(custom-set-variables '(electric-pair-mode t))
+
 
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
@@ -53,7 +54,7 @@
 (load-theme 'zenburn t)
 (set-face-attribute 'default nil
 		    :family "mononoki"
-		    :height 95
+		    :height 125
 		    :weight 'bold)
 
 ;; Jumping around --------------------------------------------------------------

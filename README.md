@@ -6,4 +6,4 @@ My personal shell and tools configuration
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyrigh (c) 2013 by Ivan Krechetov
+Copyrigh (c) 2020 by Ivan Krechetov

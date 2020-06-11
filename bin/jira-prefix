@@ -1,4 +1,4 @@
 #!/bin/bash
 
-id=$(git rev-parse --symbolic --abbrev-ref HEAD | grep -Po '^DEV-[0-9]{3,4}')
+id=$(git rev-parse --symbolic --abbrev-ref HEAD | grep -Po '^[A-Z]{3,4}-[0-9]{3,4}')
 echo -n "$id "

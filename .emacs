@@ -78,6 +78,15 @@
 
 ;; IDE -------------------------------------------------------------------------
 
+(setq exec-path (append exec-path '("/home/developer/.loacl/bin")))
+
+(defun insert-jira-issue-id ()
+  (interactive)
+  (insert (shell-command-to-string "jira-prefix")))
+
+(global-set-key (kbd "C-c C-j") 'insert-jira-issue-id)
+
+
 (editorconfig-mode 1)
 
 (require 'lsp-mode)

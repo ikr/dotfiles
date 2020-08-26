@@ -91,6 +91,13 @@
 
 (global-set-key (kbd "C-c C-j") 'insert-jira-issue-id)
 
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . markdown-mode))
+
+(add-hook 'markdown-mode-hook
+  (lambda ()
+    (flyspell-mode)
+    (setq fill-column 72)
+    (turn-on-auto-fill)))
 
 (editorconfig-mode 1)
 

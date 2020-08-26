@@ -1,5 +1,10 @@
 ;; MELPA repository ------------------------------------------------------------
 
+(setq url-proxy-services
+      '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+        ("http" . "proxy.sxdx.org:3128")
+        ("https" . "proxy.sxdx.org:3128")))
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
@@ -14,7 +19,7 @@
  '(electric-pair-mode t)
  '(package-selected-packages
    (quote
-    (editorconfig flycheck lsp-ui lsp-treemacs company-lsp lsp-mode zenburn-theme multiple-cursors ace-jump-mode))))
+    (yaml-mode editorconfig flycheck lsp-ui lsp-treemacs company-lsp lsp-mode zenburn-theme multiple-cursors ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -54,7 +59,7 @@
 (load-theme 'zenburn t)
 (set-face-attribute 'default nil
 		    :family "mononoki"
-		    :height 125
+		    :height 115
 		    :weight 'bold)
 
 ;; Jumping around --------------------------------------------------------------
@@ -89,6 +94,7 @@
 
 (editorconfig-mode 1)
 
+(setq lsp-keymap-prefix "M-s-l")
 (require 'lsp-mode)
 (add-hook 'prog-mode-hook #'lsp)
 (server-start)

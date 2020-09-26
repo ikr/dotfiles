@@ -1,10 +1,5 @@
 ;; MELPA repository ------------------------------------------------------------
 
-(setq url-proxy-services
-      '(("no_proxy" . "^\\(localhost\\|10.*\\)")
-        ("http" . "proxy.sxdx.org:3128")
-        ("https" . "proxy.sxdx.org:3128")))
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
@@ -16,10 +11,40 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
+ '(custom-safe-themes
+   '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
  '(electric-pair-mode t)
+ '(fci-rule-color "#383838")
+ '(nrepl-message-colors
+   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages
-   (quote
-    (yaml-mode editorconfig flycheck lsp-ui lsp-treemacs company-lsp lsp-mode zenburn-theme multiple-cursors ace-jump-mode))))
+   '(flx-ido ace-window yaml-mode editorconfig flycheck lsp-ui lsp-treemacs company-lsp lsp-mode zenburn-theme multiple-cursors ace-jump-mode))
+ '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
+ '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-color-map
+   '((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3")))
+ '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -83,17 +108,9 @@
 
 ;; IDE -------------------------------------------------------------------------
 
-(setq exec-path (append exec-path '("/home/developer/.loacl/bin")))
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . text-mode))
 
-(defun insert-jira-issue-id ()
-  (interactive)
-  (insert (shell-command-to-string "jira-prefix")))
-
-(global-set-key (kbd "C-c C-j") 'insert-jira-issue-id)
-
-(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . markdown-mode))
-
-(add-hook 'markdown-mode-hook
+(add-hook 'text-mode-hook
   (lambda ()
     (flyspell-mode)
     (setq fill-column 72)

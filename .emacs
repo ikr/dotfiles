@@ -22,7 +22,7 @@
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages
-   '(flx-ido ace-window yaml-mode editorconfig flycheck lsp-ui lsp-treemacs company-lsp lsp-mode zenburn-theme multiple-cursors ace-jump-mode))
+   '(kotlin-mode cider paredit clojure-mode flx-ido ace-window yaml-mode editorconfig flycheck lsp-ui lsp-treemacs company-lsp lsp-mode zenburn-theme multiple-cursors))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
@@ -79,17 +79,22 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq exec-path (append exec-path '("/home/ikr/bin")))
 
+(setenv "PATH" (concat
+                "/home/ikr/bin" path-separator
+                (getenv "PATH")))
+
 ;; Theme -----------------------------------------------------------------------
 
 (load-theme 'zenburn t)
 (set-face-attribute 'default nil
 		    :family "mononoki"
-		    :height 115
+		    :height 110
 		    :weight 'bold)
 
 ;; Jumping around --------------------------------------------------------------
 
-(global-set-key (kbd "M-o") 'ace-window)
+(avy-setup-default)
+(global-set-key (kbd "C-M-'") 'avy-goto-char-2)
 
 (autoload
   'ace-jump-mode
@@ -121,6 +126,7 @@
 (setq lsp-keymap-prefix "M-s-l")
 (require 'lsp-mode)
 (add-hook 'prog-mode-hook #'lsp)
+(add-hook 'clojure-mode-hook #'enable-paredit-mode)
 (server-start)
 
 ;; Indent left, indent right ---------------------------------------------------

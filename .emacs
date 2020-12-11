@@ -95,6 +95,7 @@
 
 (avy-setup-default)
 (global-set-key (kbd "C-M-'") 'avy-goto-char-2)
+(setq avy-background t)
 
 (autoload
   'ace-jump-mode

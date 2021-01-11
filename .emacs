@@ -22,7 +22,7 @@
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages
-   '(kotlin-mode cider paredit clojure-mode flx-ido ace-window yaml-mode editorconfig flycheck lsp-ui lsp-treemacs company-lsp lsp-mode zenburn-theme multiple-cursors))
+   '(persistent-scratch kotlin-mode cider paredit clojure-mode flx-ido ace-window yaml-mode editorconfig flycheck lsp-ui lsp-treemacs company-lsp lsp-mode zenburn-theme multiple-cursors))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
@@ -128,6 +128,9 @@
 (require 'lsp-mode)
 (add-hook 'prog-mode-hook #'lsp)
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+
+(persistent-scratch-setup-default)
+
 (server-start)
 
 ;; Indent left, indent right ---------------------------------------------------

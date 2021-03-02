@@ -122,6 +122,8 @@
     (setq fill-column 72)
     (turn-on-auto-fill)))
 
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
 (editorconfig-mode 1)
 
 (setq lsp-keymap-prefix "M-s-l")

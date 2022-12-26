@@ -102,6 +102,7 @@
 (require 'lsp-mode)
 (add-hook 'prog-mode-hook #'lsp)
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+(setq lsp-clients-clangd-args '("--header-insertion=never"))
 
 (persistent-scratch-setup-default)
 

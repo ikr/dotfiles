@@ -96,6 +96,10 @@
 
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'lsp-format-buffer t t)))
+
 (editorconfig-mode 1)
 
 (setq lsp-keymap-prefix "M-s-l")

@@ -15,7 +15,7 @@
    '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
  '(electric-pair-mode t)
  '(package-selected-packages
-   '(salt-mode nginx-mode persistent-scratch kotlin-mode cider paredit clojure-mode flx-ido ace-window yaml-mode editorconfig flycheck lsp-ui company-lsp lsp-mode zenburn-theme multiple-cursors))
+   '(quelpa-use-package quelpa salt-mode nginx-mode persistent-scratch kotlin-mode cider paredit clojure-mode flx-ido ace-window yaml-mode editorconfig flycheck lsp-ui company-lsp lsp-mode zenburn-theme multiple-cursors))
  '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -23,6 +23,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(quelpa '(copilot :fetcher github
+                  :repo "zerolfx/copilot.el"
+                  :branch "main"
+                  :files ("dist" "*.el")))
 
 ;; Tweaking of built-ins -------------------------------------------------------
 
@@ -111,6 +116,12 @@
 (persistent-scratch-setup-default)
 
 (server-start)
+
+(add-hook 'prog-mode-hook 'copilot-mode)
+
+(define-key copilot-completion-map (kbd "C-<tab>") 'copilot-accept-completion)
+(define-key copilot-completion-map (kbd "C-s-<tab>") 'copilot-accept-completion-by-word)
+
 
 ;; Indent left, indent right ---------------------------------------------------
 

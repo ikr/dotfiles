@@ -55,6 +55,7 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq exec-path (append exec-path '("/home/ikr/bin")))
+(setq exec-path (append exec-path '("/home/ikr/.cargo/bin/cargo")))
 
 (setenv "PATH" (concat
                 "/home/ikr/bin" path-separator
@@ -114,14 +115,13 @@
 (setq lsp-clients-clangd-args '("--header-insertion=never"))
 
 (persistent-scratch-setup-default)
-
-(server-start)
-
 (add-hook 'prog-mode-hook 'copilot-mode)
 
-(define-key copilot-completion-map (kbd "C-<tab>") 'copilot-accept-completion)
-(define-key copilot-completion-map (kbd "C-s-<tab>") 'copilot-accept-completion-by-word)
+(define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+(define-key copilot-completion-map (kbd "C-<tab>") 'copilot-accept-completion-by-word)
 
+(global-set-key (kbd "C-c C-c") 'comment-region)
+(global-set-key (kbd "C-z C-z") 'uncomment-region)
 
 ;; Indent left, indent right ---------------------------------------------------
 

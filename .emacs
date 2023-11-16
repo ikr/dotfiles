@@ -123,6 +123,9 @@
 (global-set-key (kbd "C-c C-c") 'comment-region)
 (global-set-key (kbd "C-z C-z") 'uncomment-region)
 
+(defalias 'duplicate-current-line (kmacro "C-a C-k C-k C-y C-y"))
+(global-set-key (kbd "C-x C-x") (quote duplicate-current-line))
+
 ;; Indent left, indent right ---------------------------------------------------
 
 (global-set-key (kbd "C-M-]")

@@ -106,6 +106,10 @@
           (lambda ()
             (add-hook 'before-save-hook 'lsp-format-buffer t t)))
 
+(add-hook 'rust-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'lsp-format-buffer t t)))
+
 (editorconfig-mode 1)
 
 (setq lsp-keymap-prefix "M-s-l")

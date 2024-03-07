@@ -123,6 +123,7 @@ PS1="\w$YELLOW\$(format_branch \$(__git_ps1 '%s') 2> /dev/null)$NO_COLOUR\$ "
 alias e='emacsclient'
 alias xc='xclip -sel clip'
 alias xp='xclip -o -sel clip'
+alias pgm='pygmentize -O style=emacs'
 alias fgr='grep -Fr --exclude-dir={.git,node_modules,vendor,www,dist,build,coverage,.gradle,.idea,log,apispec,.cache-loader} --exclude={package-lock.json,*.class,*.pdf,*.map}'
 
 export PATH=$PATH:/home/ikr/bin:/home/ikr/.go/bin

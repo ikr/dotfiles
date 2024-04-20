@@ -81,6 +81,7 @@
   "Emacs quick move minor mode"
   t)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(global-set-key (kbd "M-o") 'ace-window)
 
 ;; Multi-line edit -------------------------------------------------------------
 

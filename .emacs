@@ -55,7 +55,7 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq exec-path (append exec-path '("/home/ikr/bin")))
-(setq exec-path (append exec-path '("/home/ikr/.cargo/bin/cargo")))
+(setq exec-path (append exec-path '("/home/ikr/.cargo/bin")))
 
 (setenv "PATH" (concat
                 "/home/ikr/bin" path-separator
@@ -112,7 +112,7 @@
 
 (editorconfig-mode 1)
 
-(setq lsp-keymap-prefix "M-s-l")
+(setq lsp-keymap-prefix "s-'")
 (require 'lsp-mode)
 (add-hook 'prog-mode-hook #'lsp)
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)

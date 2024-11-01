@@ -125,7 +125,7 @@
 (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
 (define-key copilot-completion-map (kbd "C-<tab>") 'copilot-accept-completion-by-word)
 
-(global-set-key (kbd "C-c C-c") 'comment-region)
+(global-set-key (kbd "C-c C-b") 'comment-region)
 (global-set-key (kbd "C-c C-v") 'uncomment-region)
 
 (defalias 'duplicate-current-line (kmacro "C-a C-k C-k C-y C-y C-b M-m"))

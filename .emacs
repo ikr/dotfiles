@@ -122,6 +122,7 @@
 (persistent-scratch-setup-default)
 ;; (add-hook 'prog-mode-hook 'copilot-mode)
 
+(require 'copilot)
 (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
 (define-key copilot-completion-map (kbd "C-<tab>") 'copilot-accept-completion-by-word)
 

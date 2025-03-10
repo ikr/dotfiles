@@ -24,11 +24,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-(quelpa '(copilot :fetcher github
-                  :repo "zerolfx/copilot.el"
-                  :branch "main"
-                  :files ("dist" "*.el")))
-
 ;; Tweaking of built-ins -------------------------------------------------------
 
 (setq make-backup-files nil)
@@ -120,11 +115,6 @@
 (setq lsp-clients-clangd-args '("--header-insertion=never"))
 
 (persistent-scratch-setup-default)
-;; (add-hook 'prog-mode-hook 'copilot-mode)
-
-(require 'copilot)
-(define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-(define-key copilot-completion-map (kbd "C-<tab>") 'copilot-accept-completion-by-word)
 
 (global-set-key (kbd "C-c C-b") 'comment-region)
 (global-set-key (kbd "C-c C-v") 'uncomment-region)

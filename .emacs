@@ -15,7 +15,9 @@
    '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
  '(electric-pair-mode t)
  '(package-selected-packages
-   '(quelpa-use-package quelpa salt-mode nginx-mode persistent-scratch kotlin-mode cider paredit clojure-mode flx-ido ace-window yaml-mode editorconfig flycheck lsp-ui company-lsp lsp-mode zenburn-theme multiple-cursors))
+   '(ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode
+                lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa
+                quelpa-use-package salt-mode yaml-mode zenburn-theme))
  '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

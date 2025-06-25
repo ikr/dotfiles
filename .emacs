@@ -15,9 +15,7 @@
    '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
  '(electric-pair-mode t)
  '(package-selected-packages
-   '(ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode
-                lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa
-                quelpa-use-package salt-mode yaml-mode zenburn-theme))
+   '(lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme))
  '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -32,9 +30,14 @@
 (setq visible-bell 1)
 (setq ring-bell-function 'ignore)
 (column-number-mode)
-(tool-bar-mode -1)
+
+(if (display-graphic-p)
+    (progn
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1)))
+
 (menu-bar-mode -1)
-(scroll-bar-mode -1)
+
 (delete-selection-mode 1)
 (global-hl-line-mode 1)
 (setq-default indent-tabs-mode nil)
@@ -88,6 +91,20 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-M->") 'mc/unmark-previous-like-this)
 
+;; Insert Jira ticket reference ------------------------------------------------
+
+(defun first-match (regex string)
+  (when (string-match regex string)
+    (match-string 0 string)))
+
+(defun insert-jira-issue-id ()
+  (interactive)
+  (insert (first-match "^[A-Z0-9]+-[0-9]+"
+                       (shell-command-to-string "git rev-parse --symbolic --abbrev-ref HEAD"))))
+
+(global-set-key (kbd "C-c C-j") 'insert-jira-issue-id)
+
+
 ;; IDE -------------------------------------------------------------------------
 
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . text-mode))
@@ -113,9 +130,13 @@
             (add-hook 'before-save-hook 'lsp-format-buffer t t)))
 
 (editorconfig-mode 1)
+(projectile-mode +1)
+(setq projectile-completion-system 'ivy)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-(setq lsp-keymap-prefix "s-'")
 (require 'lsp-mode)
+(with-eval-after-load 'lsp-mode
+  (define-key lsp-mode-map (kbd "C-c '") lsp-command-map))
 (add-hook 'prog-mode-hook #'lsp)
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
 (setq lsp-clients-clangd-args '("--header-insertion=never"))
@@ -196,3 +217,18 @@ e.g. `HelloWorldString'."
       (widen))))
 
 (global-set-key (kbd "M--") 'mo-toggle-identifier-naming-style)
+
+;; WSL clipboard copy
+
+(defun on-wsl-p ()
+  (getenv "WSL_DISTRO_NAME"))
+
+(defun wsl-update-clip (&rest _args)
+  "Update Windows clipboard with latest kill ring entry."
+  (when-let ((str (current-kill 0)))
+    (with-temp-buffer
+      (insert str)
+      (shell-command-on-region (point-min) (point-max) "clip.exe" nil nil))))
+
+(if (on-wsl-p)
+    (advice-add 'kill-new :after #'wsl-update-clip))

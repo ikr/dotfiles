@@ -137,7 +137,8 @@
 (require 'lsp-mode)
 (with-eval-after-load 'lsp-mode
   (define-key lsp-mode-map (kbd "C-c '") lsp-command-map))
-(add-hook 'prog-mode-hook #'lsp)
+(add-hook 'clojure-mode-hook #'lsp-deferred)
+(add-hook 'rust-mode-hook #'lsp-deferred)
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
 (setq lsp-clients-clangd-args '("--header-insertion=never"))
 

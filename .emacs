@@ -15,7 +15,7 @@
    '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
  '(electric-pair-mode t)
  '(package-selected-packages
-   '(rust-mode lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme))
+   '(sqlformat rust-mode lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme))
  '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -129,6 +129,11 @@
 (add-hook 'clojure-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'lsp-format-buffer t t)))
+
+(require 'sqlformat)
+(setq sqlformat-command 'pgformatter)
+(setq sqlformat-args '("-s2" "-g" "-u1"))
+(add-hook 'sql-mode-hook 'sqlformat-on-save-mode)
 
 (editorconfig-mode 1)
 (projectile-mode +1)

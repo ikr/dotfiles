@@ -15,7 +15,7 @@
    '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
  '(electric-pair-mode t)
  '(package-selected-packages
-   '(lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme))
+   '(rust-mode lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme))
  '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -72,7 +72,7 @@
 ;; Jumping around --------------------------------------------------------------
 
 (avy-setup-default)
-(global-set-key (kbd "C-M-'") 'avy-goto-char-2)
+(global-set-key (kbd "C-c M-'") 'avy-goto-char-2)
 (setq avy-background t)
 
 (autoload
@@ -85,11 +85,12 @@
 
 ;; Multi-line edit -------------------------------------------------------------
 
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-M-<") 'mc/unmark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-M->") 'mc/unmark-previous-like-this)
+(require 'multiple-cursors)
+(global-set-key (kbd "C-c M-m") 'mc/edit-lines)
+(global-set-key (kbd "C-c M-n") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c M-b") 'mc/unmark-next-like-this)
+(global-set-key (kbd "C-c M-p") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c M-q") 'mc/unmark-previous-like-this)
 
 ;; Insert Jira ticket reference ------------------------------------------------
 

@@ -113,8 +113,7 @@
 (add-hook 'text-mode-hook
   (lambda ()
     (flyspell-mode)
-    (setq fill-column 72)
-    (turn-on-auto-fill)))
+    (setq fill-column 100)))
 
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 

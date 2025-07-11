@@ -222,7 +222,7 @@ e.g. `HelloWorldString'."
                        t nil))
       (widen))))
 
-(global-set-key (kbd "M--") 'mo-toggle-identifier-naming-style)
+(global-set-key (kbd "C-c M--") 'mo-toggle-identifier-naming-style)
 
 ;; WSL clipboard copy
 

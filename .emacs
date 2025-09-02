@@ -75,12 +75,6 @@
 (global-set-key (kbd "C-c M-'") 'avy-goto-char-2)
 (setq avy-background t)
 
-(autoload
-  'ace-jump-mode
-  "ace-jump-mode"
-  "Emacs quick move minor mode"
-  t)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (global-set-key (kbd "M-o") 'ace-window)
 
 ;; Multi-line edit -------------------------------------------------------------

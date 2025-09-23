@@ -80,9 +80,9 @@
 ;; Multi-line edit -------------------------------------------------------------
 
 (require 'multiple-cursors)
-(global-set-key (kbd "C-c M-m") 'mc/edit-lines)
-(global-set-key (kbd "C-c M-n") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-c M-b") 'mc/unmark-next-like-this)
+(global-set-key (kbd "C-c m") 'mc/edit-lines)
+(global-set-key (kbd "C-c n") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c b") 'mc/unmark-next-like-this)
 (global-set-key (kbd "C-c M-p") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c M-q") 'mc/unmark-previous-like-this)
 

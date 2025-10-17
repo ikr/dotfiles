@@ -67,7 +67,7 @@
 (set-face-attribute 'default nil
 		    :family "mononoki"
 		    :height 110
-		    :weight 'bold)
+		    :weight 'normal)
 
 ;; Jumping around --------------------------------------------------------------
 

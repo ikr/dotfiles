@@ -1,4 +1,4 @@
-;; MELPA repository ------------------------------------------------------------
+k;; MELPA repository ------------------------------------------------------------
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -15,7 +15,7 @@
    '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
  '(electric-pair-mode t)
  '(package-selected-packages
-   '(sqlformat rust-mode lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme))
+   '(protobuf-mode sqlformat rust-mode lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme))
  '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -153,6 +153,15 @@
 
 (defalias 'duplicate-current-line (kmacro "C-a C-k C-k C-y C-y C-b M-m"))
 (global-set-key (kbd "C-x C-x") (quote duplicate-current-line))
+
+(defun copy-buffer-file-path ()
+  "Copy the full path of the current buffer's file to the kill ring."
+  (interactive)
+  (when-let ((path (buffer-file-name)))
+    (kill-new path)
+    (message "Copied: %s" path)))
+
+(global-set-key (kbd "C-c C-c") #'copy-buffer-file-path)
 
 ;; Indent left, indent right ---------------------------------------------------
 

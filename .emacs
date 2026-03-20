@@ -15,7 +15,7 @@
    '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
  '(electric-pair-mode t)
  '(package-selected-packages
-   '(protobuf-mode sqlformat rust-mode lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme))
+   '(rustic protobuf-mode sqlformat rust-mode lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme))
  '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -56,10 +56,6 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq exec-path (append exec-path '("/home/ikr/bin")))
 (setq exec-path (append exec-path '("/home/ikr/.cargo/bin")))
-
-(setenv "PATH" (concat
-                "/home/ikr/bin" path-separator
-                (getenv "PATH")))
 
 ;; Theme -----------------------------------------------------------------------
 
@@ -138,6 +134,7 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 (require 'lsp-mode)
+(setq lsp-enable-file-watchers nil)
 (with-eval-after-load 'lsp-mode
   (define-key lsp-mode-map (kbd "C-c '") lsp-command-map))
 (add-hook 'clojure-mode-hook #'lsp-deferred)

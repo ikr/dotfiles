@@ -134,6 +134,7 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 (require 'lsp-mode)
+(require 'lsp-metals)
 (setq lsp-enable-file-watchers nil)
 (with-eval-after-load 'lsp-mode
   (define-key lsp-mode-map (kbd "C-c '") lsp-command-map))

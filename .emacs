@@ -159,7 +159,8 @@
     (kill-new path)
     (message "Copied: %s" path)))
 
-(global-set-key (kbd "C-c C-c") #'copy-buffer-file-path)
+(require 'bind-key)
+(bind-key* "C-c C-c" #'copy-buffer-file-path)
 
 ;; Indent left, indent right ---------------------------------------------------
 

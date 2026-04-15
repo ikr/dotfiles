@@ -15,7 +15,7 @@
    '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
  '(electric-pair-mode t)
  '(package-selected-packages
-   '(rustic protobuf-mode sqlformat rust-mode lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme))
+   '(rustic protobuf-mode sqlformat rust-mode lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme avy projectile bind-key))
  '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -23,6 +23,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; Auto-install missing packages -----------------------------------------------
+
+(unless package-archive-contents
+  (package-refresh-contents))
+(package-install-selected-packages t)
 
 ;; Tweaking of built-ins -------------------------------------------------------
 

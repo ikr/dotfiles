@@ -167,6 +167,7 @@
 
 (require 'bind-key)
 (bind-key* "C-c C-c" #'copy-buffer-file-path)
+(bind-key* "C-c C-d" #'lsp-ui-doc-toggle)
 
 ;; Indent left, indent right ---------------------------------------------------
 

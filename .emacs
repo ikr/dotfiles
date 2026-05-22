@@ -15,7 +15,7 @@
    '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
  '(electric-pair-mode t)
  '(package-selected-packages
-   '(lsp-ivy rustic protobuf-mode sqlformat rust-mode lsp-metals scala-mode free-keys company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme avy projectile bind-key))
+   '(lsp-ivy rustic protobuf-mode sqlformat rust-mode lsp-metals scala-mode company ivy ace-window cider clojure-mode company-lsp editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme avy projectile bind-key))
  '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

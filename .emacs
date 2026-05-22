@@ -168,10 +168,7 @@
 (require 'bind-key)
 (bind-key* "C-c C-c" #'copy-buffer-file-path)
 (bind-key* "C-c C-d" #'lsp-ui-doc-toggle)
-
-;; Seems swiper-isearch messes those two up
-(bind-key* "C-s" 'isearch-forward)
-(bind-key* "C-r" 'isearch-backward)
+(bind-key* "C-c C-n" #'lsp-ivy-workspace-symbol)
 
 ;; Indent left, indent right ---------------------------------------------------
 

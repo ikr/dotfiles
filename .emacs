@@ -170,6 +170,21 @@
 (bind-key* "C-c C-d" #'lsp-ui-doc-toggle)
 (bind-key* "C-c C-n" #'lsp-ivy-workspace-symbol)
 
+(with-eval-after-load 'lsp-mode
+  ;; lsp-mode hands xref the LSP 0-based line; xref is 1-based. The off-by-one is
+  ;; usually cosmetic, but Metals' synthetic line-0 "Add ';' ..." workspace/symbol
+  ;; hint becomes xref line 0, and xref--insert-xrefs does (floor (log 0 10)) =>
+  ;; (overflow-error). Adding 1+ fixes both the crash and the off-by-one.
+  (lsp-defun lsp--symbol-information-to-xref
+    ((&SymbolInformation :kind :name
+                         :location (&Location :uri :range (&Range :start (&Position :line
+                                                                                    :character)))))
+    "Return a `xref-item' from SYMBOL information."
+    (xref-make (format "[%s] %s" (alist-get kind lsp-symbol-kinds) name)
+               (xref-make-file-location (lsp--uri-to-path uri)
+                                        (1+ line)
+                                        character))))
+
 ;; Indent left, indent right ---------------------------------------------------
 
 (global-set-key (kbd "C-M-]")

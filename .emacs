@@ -108,10 +108,27 @@
 ;; (markdown-follow-thing-at-point) to follow the thing at point. These settings
 ;; teach it to follow Obsidian-style [[wiki-links]] too, e.g. [[Foo-Bar]] and
 ;; [[Foo-Bar|display text]] jump to Foo-Bar.md.
+;; Obsidian-style "show backlinks": list [[This-Note]] references from the other
+;; .md files in the same directory, in a navigable grep buffer.
+(defun markdown-show-backlinks ()
+  "List wiki-link backlinks to the current note from sibling .md files.
+Greps this note's directory for [[This-Note]], [[This-Note|alias]] and
+[[This-Note#heading]] references and shows them in a grep buffer, where
+each hit is navigable (RET / n / p) like any grep result."
+  (interactive)
+  (unless buffer-file-name
+    (user-error "Buffer is not visiting a file"))
+  (require 'grep)
+  (let* ((note (file-name-base buffer-file-name))
+         (default-directory (file-name-directory buffer-file-name))
+         (pattern (format "\\[\\[%s[]#|]" note)))
+    (grep (format "grep -nE -- %s ./*.md" (shell-quote-argument pattern)))))
+
 (with-eval-after-load 'markdown-mode
   (setq markdown-enable-wiki-links t          ; treat [[Foo-Bar]] as a navigable link
         markdown-wiki-link-alias-first nil    ; Obsidian order is [[link|alias]]
-        markdown-wiki-link-fontify-missing t)); color links whose target is absent
+        markdown-wiki-link-fontify-missing t) ; color links whose target is absent
+  (define-key markdown-mode-map (kbd "C-c C-w") #'markdown-show-backlinks))
 
 ;; IDE -------------------------------------------------------------------------
 

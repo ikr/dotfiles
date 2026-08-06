@@ -15,7 +15,7 @@
    '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
  '(electric-pair-mode t)
  '(package-selected-packages
-   '(lsp-ivy rustic protobuf-mode sqlformat rust-mode lsp-metals scala-mode company ivy ace-window cider clojure-mode editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package salt-mode yaml-mode zenburn-theme avy projectile bind-key))
+   '(lsp-ivy rustic protobuf-mode sqlformat rust-mode lsp-metals scala-mode company ivy ace-window cider clojure-mode editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package yaml-mode zenburn-theme avy projectile bind-key markdown-mode))
  '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -101,6 +101,17 @@
 
 (global-set-key (kbd "C-c C-j") 'insert-jira-issue-id)
 
+
+;; Markdown / Obsidian wiki-links ----------------------------------------------
+
+;; markdown-mode already opens .md files and binds C-c C-o
+;; (markdown-follow-thing-at-point) to follow the thing at point. These settings
+;; teach it to follow Obsidian-style [[wiki-links]] too, e.g. [[Foo-Bar]] and
+;; [[Foo-Bar|display text]] jump to Foo-Bar.md.
+(with-eval-after-load 'markdown-mode
+  (setq markdown-enable-wiki-links t          ; treat [[Foo-Bar]] as a navigable link
+        markdown-wiki-link-alias-first nil    ; Obsidian order is [[link|alias]]
+        markdown-wiki-link-fontify-missing t)); color links whose target is absent
 
 ;; IDE -------------------------------------------------------------------------
 

@@ -126,8 +126,7 @@ each hit is navigable (RET / n / p) like any grep result."
 
 (with-eval-after-load 'markdown-mode
   (setq markdown-enable-wiki-links t          ; treat [[Foo-Bar]] as a navigable link
-        markdown-wiki-link-alias-first nil    ; Obsidian order is [[link|alias]]
-        markdown-wiki-link-fontify-missing t) ; color links whose target is absent
+        markdown-wiki-link-alias-first nil)   ; Obsidian order is [[link|alias]]
   (define-key markdown-mode-map (kbd "C-c C-w") #'markdown-show-backlinks))
 
 ;; IDE -------------------------------------------------------------------------

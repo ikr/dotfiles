@@ -175,6 +175,7 @@ each hit is navigable (RET / n / p) like any grep result."
 (add-hook 'rust-mode-hook #'lsp-deferred)
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
 (add-hook 'scala-mode-hook #'lsp-deferred)
+(add-hook 'c++-mode-hook #'lsp-deferred)
 (setq lsp-clients-clangd-args '("--header-insertion=never"))
 
 (persistent-scratch-setup-default)

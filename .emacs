@@ -142,6 +142,7 @@ each hit is navigable (RET / n / p) like any grep result."
 
 (add-hook 'c++-mode-hook
           (lambda ()
+            (setq lsp-enable-on-type-formatting nil)
             (add-hook 'before-save-hook 'lsp-format-buffer t t)))
 
 (add-hook 'rust-mode-hook

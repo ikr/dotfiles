@@ -132,6 +132,7 @@ each hit is navigable (RET / n / p) like any grep result."
 ;; IDE -------------------------------------------------------------------------
 
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . text-mode))
+(add-to-list 'auto-mode-alist '("\\.jjdescription\\'" . text-mode))
 
 (add-hook 'text-mode-hook
   (lambda ()

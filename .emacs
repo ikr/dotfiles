@@ -1,40 +1,28 @@
-;; MELPA repository ------------------------------------------------------------
+;; Package system --------------------------------------------------------------
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-;; Code-gen-ed -----------------------------------------------------------------
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
- '(electric-pair-mode t)
- '(package-selected-packages
-   '(lsp-ivy rustic protobuf-mode sqlformat rust-mode lsp-metals scala-mode company ivy ace-window cider clojure-mode editorconfig flx-ido flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch quelpa quelpa-use-package yaml-mode zenburn-theme avy projectile bind-key markdown-mode))
- '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-;; Auto-install missing packages -----------------------------------------------
-
 (unless package-archive-contents
   (package-refresh-contents))
-(package-install-selected-packages t)
+
+;; use-package ships with Emacs 29+. Every (use-package foo) block below also
+;; installs foo if it is missing, so this file is the complete package list.
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; Keep Custom's generated code (package-selected-packages, theme hashes, ...)
+;; out of this file.
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(load custom-file t)
 
 ;; Tweaking of built-ins -------------------------------------------------------
 
 (setq make-backup-files nil)
 (setq visible-bell 1)
 (setq ring-bell-function 'ignore)
+(setq warning-suppress-types '((lsp-mode) (comp)))
 (column-number-mode)
 
 (if (display-graphic-p)
@@ -45,6 +33,7 @@
 (menu-bar-mode -1)
 
 (delete-selection-mode 1)
+(electric-pair-mode 1)
 (global-hl-line-mode 1)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -55,52 +44,57 @@
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
 
-
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(setq exec-path (append exec-path '("/home/ikr/bin")))
-(setq exec-path (append exec-path '("/home/ikr/.cargo/bin")))
+
+;; clojure-lsp, clj and bb live in ~/.local/bin; cargo tools in ~/.cargo/bin.
+(dolist (dir '("~/.local/bin" "~/.cargo/bin"))
+  (add-to-list 'exec-path (expand-file-name dir) t))
 
 ;; Theme -----------------------------------------------------------------------
 
-(load-theme 'zenburn t)
+(use-package zenburn-theme
+  :config
+  (load-theme 'zenburn t))
+
 (set-face-attribute 'default nil
-		    :family "mononoki"
-		    :height 110
-		    :weight 'normal)
+                    :family "mononoki"
+                    :height 110
+                    :weight 'normal)
 
 ;; Jumping around --------------------------------------------------------------
 
-(avy-setup-default)
-(global-set-key (kbd "C-c M-'") 'avy-goto-char-2)
-(setq avy-background t)
+(use-package avy
+  :bind ("C-c M-'" . avy-goto-char-2)
+  :custom (avy-background t)
+  :config (avy-setup-default))
 
-(global-set-key (kbd "M-o") 'ace-window)
+(use-package ace-window
+  :bind ("M-o" . ace-window))
 
 ;; Multi-line edit -------------------------------------------------------------
 
-(require 'multiple-cursors)
-(global-set-key (kbd "C-c m") 'mc/edit-lines)
-(global-set-key (kbd "C-c n") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-c b") 'mc/unmark-next-like-this)
-(global-set-key (kbd "C-c M-p") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c M-q") 'mc/unmark-previous-like-this)
+(use-package multiple-cursors
+  :bind (("C-c m" . mc/edit-lines)
+         ("C-c n" . mc/mark-next-like-this)
+         ("C-c b" . mc/unmark-next-like-this)
+         ("C-c M-p" . mc/mark-previous-like-this)
+         ("C-c M-q" . mc/unmark-previous-like-this)))
 
 ;; Insert Jira ticket reference ------------------------------------------------
 
-(defun first-match (regex string)
+(defun my/first-match (regex string)
   (when (string-match regex string)
     (match-string 0 string)))
 
-(defun insert-jira-issue-id ()
+(defun my/insert-jira-issue-id ()
   (interactive)
-  (insert (first-match "^[A-Z0-9]+-[0-9]+"
-                       (shell-command-to-string "git rev-parse --symbolic --abbrev-ref HEAD"))))
+  (insert (my/first-match "^[A-Z0-9]+-[0-9]+"
+                          (shell-command-to-string "git rev-parse --symbolic --abbrev-ref HEAD"))))
 
-(global-set-key (kbd "C-c C-j") 'insert-jira-issue-id)
-
+(global-set-key (kbd "C-c C-j") #'my/insert-jira-issue-id)
 
 ;; Markdown / Obsidian wiki-links ----------------------------------------------
 
@@ -110,7 +104,7 @@
 ;; [[Foo-Bar|display text]] jump to Foo-Bar.md.
 ;; Obsidian-style "show backlinks": list [[This-Note]] references from the other
 ;; .md files in the same directory, in a navigable grep buffer.
-(defun markdown-show-backlinks ()
+(defun my/markdown-show-backlinks ()
   "List wiki-link backlinks to the current note from sibling .md files.
 Greps this note's directory for [[This-Note]], [[This-Note|alias]] and
 [[This-Note#heading]] references and shows them in a grep buffer, where
@@ -124,83 +118,69 @@ each hit is navigable (RET / n / p) like any grep result."
          (pattern (format "\\[\\[%s[]#|]" note)))
     (grep (format "grep -nE -- %s ./*.md" (shell-quote-argument pattern)))))
 
-(with-eval-after-load 'markdown-mode
-  (setq markdown-enable-wiki-links t          ; treat [[Foo-Bar]] as a navigable link
-        markdown-wiki-link-alias-first nil)   ; Obsidian order is [[link|alias]]
-  (define-key markdown-mode-map (kbd "C-c C-w") #'markdown-show-backlinks))
+(use-package markdown-mode
+  :custom
+  (markdown-enable-wiki-links t)        ; treat [[Foo-Bar]] as a navigable link
+  (markdown-wiki-link-alias-first nil)  ; Obsidian order is [[link|alias]]
+  :bind (:map markdown-mode-map
+              ("C-c C-w" . my/markdown-show-backlinks)))
 
-;; IDE -------------------------------------------------------------------------
+;; Text modes ------------------------------------------------------------------
 
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . text-mode))
 (add-to-list 'auto-mode-alist '("\\.jjdescription\\'" . text-mode))
 
 (add-hook 'text-mode-hook
-  (lambda ()
-    (flyspell-mode)
-    (setq fill-column 100)))
+          (lambda ()
+            (flyspell-mode)
+            (setq fill-column 100)))
 
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
-(add-hook 'c++-mode-hook
-          (lambda ()
-            (setq lsp-enable-on-type-formatting nil)
-            (add-hook 'before-save-hook 'lsp-format-buffer t t)))
+(use-package yaml-mode :defer t)
+(use-package nginx-mode :defer t)
+(use-package protobuf-mode :defer t)
 
-(add-hook 'rust-mode-hook
-          (lambda ()
-            (add-hook 'before-save-hook 'lsp-format-buffer t t)))
+(use-package sqlformat
+  :custom
+  (sqlformat-command 'pgformatter)
+  (sqlformat-args '("-s2" "-g" "-u1"))
+  :hook (sql-mode . sqlformat-on-save-mode))
 
-(add-hook 'clojure-mode-hook
-          (lambda ()
-            (add-hook 'before-save-hook 'lsp-format-buffer t t)))
+;; IDE: project & editor conventions -------------------------------------------
 
-(add-hook 'scala-mode-hook
-          (lambda ()
-            (add-hook 'before-save-hook 'lsp-format-buffer t t)))
+(use-package editorconfig
+  :config (editorconfig-mode 1))
 
-(require 'sqlformat)
-(setq sqlformat-command 'pgformatter)
-(setq sqlformat-args '("-s2" "-g" "-u1"))
-(add-hook 'sql-mode-hook 'sqlformat-on-save-mode)
+(use-package ivy :defer t)       ; used by projectile and lsp-ivy
+(use-package company :defer t)   ; auto-enabled by lsp-mode in LSP buffers
+(use-package flycheck :defer t)  ; auto-enabled by lsp-mode in LSP buffers
 
-(editorconfig-mode 1)
-(projectile-mode +1)
-(setq projectile-completion-system 'ivy)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(use-package projectile
+  :demand t
+  :custom (projectile-completion-system 'ivy)
+  :bind-keymap ("C-c p" . projectile-command-map)
+  :config (projectile-mode +1))
 
-(require 'lsp-mode)
-(require 'lsp-metals)
-(setq lsp-enable-file-watchers nil)
-(with-eval-after-load 'lsp-mode
-  (define-key lsp-mode-map (kbd "C-c '") lsp-command-map))
-(add-hook 'clojure-mode-hook #'lsp-deferred)
-(add-hook 'rust-mode-hook #'lsp-deferred)
-(add-hook 'clojure-mode-hook #'enable-paredit-mode)
-(add-hook 'scala-mode-hook #'lsp-deferred)
-(add-hook 'c++-mode-hook #'lsp-deferred)
-(setq lsp-clients-clangd-args '("--header-insertion=never"))
+;; IDE: LSP --------------------------------------------------------------------
 
-(persistent-scratch-setup-default)
+(use-package lsp-mode
+  :init
+  ;; Must be set before lsp-mode loads: it is baked into lsp-mode-map.
+  (setq lsp-keymap-prefix "C-c '")
+  :hook ((c++-mode rust-mode scala-mode) . lsp-deferred)
+  :custom
+  (lsp-enable-file-watchers nil)
+  ;; clangd's on-type formatting fights with the C++ auto-indent.
+  (lsp-enable-on-type-formatting nil)
+  (lsp-clients-clangd-args '("--header-insertion=never"))
+  :config
+  ;; Format with the language server on save, in every LSP-managed buffer.
+  (add-hook 'lsp-mode-hook
+            (lambda ()
+              (when lsp-mode
+                (add-hook 'before-save-hook #'lsp-format-buffer nil t))))
 
-(global-set-key (kbd "C-c C-b") 'comment-region)
-(global-set-key (kbd "C-c C-v") 'uncomment-region)
-
-(defalias 'duplicate-current-line (kmacro "C-a C-k C-k C-y C-y C-b M-m"))
-(global-set-key (kbd "C-x C-x") (quote duplicate-current-line))
-
-(defun copy-buffer-file-path ()
-  "Copy the full path of the current buffer's file to the kill ring."
-  (interactive)
-  (when-let ((path (buffer-file-name)))
-    (kill-new path)
-    (message "Copied: %s" path)))
-
-(require 'bind-key)
-(bind-key* "C-c C-c" #'copy-buffer-file-path)
-(bind-key* "C-c C-d" #'lsp-ui-doc-toggle)
-(bind-key* "C-c C-n" #'lsp-ivy-workspace-symbol)
-
-(with-eval-after-load 'lsp-mode
   ;; lsp-mode hands xref the LSP 0-based line; xref is 1-based. The off-by-one is
   ;; usually cosmetic, but Metals' synthetic line-0 "Add ';' ..." workspace/symbol
   ;; hint becomes xref line 0, and xref--insert-xrefs does (floor (log 0 10)) =>
@@ -214,6 +194,54 @@ each hit is navigable (RET / n / p) like any grep result."
                (xref-make-file-location (lsp--uri-to-path uri)
                                         (1+ line)
                                         character))))
+
+(use-package lsp-ui
+  :bind ("C-c d" . lsp-ui-doc-toggle))
+
+(use-package lsp-ivy
+  :bind ("C-c s" . lsp-ivy-workspace-symbol))
+
+;; IDE: languages --------------------------------------------------------------
+
+(defun my/clojure-mode-setup ()
+  "Shared setup for Clojure buffers (clojure-mode now, clojure-ts-mode later)."
+  (enable-paredit-mode)
+  (lsp-deferred))
+
+(use-package paredit :defer t)
+
+(use-package clojure-mode
+  :hook (clojure-mode . my/clojure-mode-setup))
+
+(use-package cider :defer t)
+
+(use-package rustic :defer t)
+(use-package scala-mode :defer t)
+(use-package lsp-metals :defer t)   ; picked up by lsp-mode via lsp-client-packages
+(use-package kotlin-mode :defer t)
+
+;; Misc editing commands -------------------------------------------------------
+
+(use-package persistent-scratch
+  :config (persistent-scratch-setup-default))
+
+(global-set-key (kbd "C-c C-b") 'comment-region)
+(global-set-key (kbd "C-c C-v") 'uncomment-region)
+
+(defalias 'my/duplicate-current-line (kmacro "C-a C-k C-k C-y C-y C-b M-m"))
+(global-set-key (kbd "C-x C-x") #'my/duplicate-current-line)
+
+(defun my/copy-buffer-file-path ()
+  "Copy the full path of the current buffer's file to the kill ring."
+  (interactive)
+  (when-let ((path (buffer-file-name)))
+    (kill-new path)
+    (message "Copied: %s" path)))
+
+;; C-c <letter> is reserved for users, so no major or minor mode will shadow it.
+;; (The previous C-c C-c / C-c C-d / C-c C-n bindings clobbered CIDER's
+;; eval-defun, doc map and set-ns.)
+(global-set-key (kbd "C-c f") #'my/copy-buffer-file-path)
 
 ;; Indent left, indent right ---------------------------------------------------
 
@@ -255,7 +283,7 @@ each hit is navigable (RET / n / p) like any grep result."
 
 ;; CamelCase <-> snake_case ----------------------------------------------------
 
-(defun mo-toggle-identifier-naming-style ()
+(defun my/toggle-identifier-naming-style ()
   "Toggles the symbol at point between C-style naming,
 e.g. `hello_world_string', and camel case,
 e.g. `HelloWorldString'."
@@ -282,19 +310,19 @@ e.g. `HelloWorldString'."
                        t nil))
       (widen))))
 
-(global-set-key (kbd "C-c M--") 'mo-toggle-identifier-naming-style)
+(global-set-key (kbd "C-c M--") #'my/toggle-identifier-naming-style)
 
-;; WSL clipboard copy
+;; WSL clipboard copy ----------------------------------------------------------
 
-(defun on-wsl-p ()
+(defun my/on-wsl-p ()
   (getenv "WSL_DISTRO_NAME"))
 
-(defun wsl-update-clip (&rest _args)
+(defun my/wsl-update-clip (&rest _args)
   "Update Windows clipboard with latest kill ring entry."
   (when-let ((str (current-kill 0)))
     (with-temp-buffer
       (insert str)
       (shell-command-on-region (point-min) (point-max) "clip.exe" nil nil))))
 
-(if (on-wsl-p)
-    (advice-add 'kill-new :after #'wsl-update-clip))
+(if (my/on-wsl-p)
+    (advice-add 'kill-new :after #'my/wsl-update-clip))

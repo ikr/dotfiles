@@ -41,7 +41,12 @@
 (setq-default tab-width 4)
 (show-paren-mode 1)
 (setq-default fill-column 100)
-(desktop-save-mode 1)
+;; Session continuity without desktop-save-mode: files reopen at the last point
+;; position, and recent files are offered by consult (C-x b, C-c r). Buffers
+;; themselves live in the daemon anyway.
+(save-place-mode 1)
+(recentf-mode 1)
+(setq recentf-max-saved-items 200)
 (global-auto-revert-mode t)
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-x C-z"))
@@ -111,7 +116,8 @@
          ([remap goto-line] . consult-goto-line)
          ("M-g i" . consult-imenu)
          ("M-s l" . consult-line)
-         ("M-s g" . consult-git-grep))   ; no ripgrep installed; else consult-ripgrep
+         ("M-s r" . consult-ripgrep)
+         ("C-c r" . consult-recent-file))
   :custom
   ;; Let consult's project-aware commands use projectile's notion of a project.
   (consult-project-function (lambda (_) (projectile-project-root))))

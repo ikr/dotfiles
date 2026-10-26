@@ -54,6 +54,19 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
+;; Undo / redo window arrangements per frame: C-c <left> / C-c <right>.
+(winner-mode 1)
+
+(defun my/layout-4-columns ()
+  "Arrange the frame as four equally wide side-by-side windows."
+  (interactive)
+  (delete-other-windows)
+  (dotimes (_ 3)
+    (split-window-right))
+  (balance-windows))
+
+(global-set-key (kbd "C-c l") #'my/layout-4-columns)
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; clojure-lsp, clj and bb live in ~/.local/bin; cargo tools in ~/.cargo/bin.

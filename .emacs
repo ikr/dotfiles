@@ -34,6 +34,8 @@
 
 (delete-selection-mode 1)
 (electric-pair-mode 1)
+(savehist-mode 1)                      ; minibuffer history across sessions
+(setq enable-recursive-minibuffers t)
 (global-hl-line-mode 1)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)

@@ -185,16 +185,67 @@
 
 ;; Insert Jira ticket reference ------------------------------------------------
 
-(defun my/first-match (regex string)
-  (when (string-match regex string)
-    (match-string 0 string)))
+;; C-c j inserts the key of the Jira issue that is "In Progress" for me (e.g.
+;; FOO-12345), asking which one if there are several. Always explicit: commit
+;; messages are not assumed to relate to a ticket. JIRA_URL is the server,
+;; JIRA_PAT a personal access token; the token reaches curl through a config on
+;; stdin, never on the command line. The server is contacted directly, bypassing
+;; any proxy. Work-only, hence enabled on WSL only.
+
+(defconst my/jira-in-progress-jql
+  "assignee = currentUser() AND status = \"In Progress\" ORDER BY updated DESC")
+
+(defvar my/jira--cache nil
+  "(TIME . ISSUES) from the last successful query, reused for five minutes.")
+
+(defun my/jira-in-progress-issues ()
+  "Return my in-progress Jira issues as (KEY . SUMMARY) pairs, newest first.
+Return nil, after a message, when JIRA_URL or JIRA_PAT is unset or Jira is
+unreachable."
+  (if (and my/jira--cache (< (float-time (time-since (car my/jira--cache))) 300))
+      (cdr my/jira--cache)
+    (let ((url (getenv "JIRA_URL" (selected-frame)))
+          (token (getenv "JIRA_PAT" (selected-frame))))
+      (if (not (and url token))
+          (progn (message "JIRA_URL or JIRA_PAT is not set") nil)
+        (with-temp-buffer
+          (insert "silent\nshow-error\nfail\nconnect-timeout = 2\nmax-time = 5\n"
+                  "noproxy = \"*\"\n"
+                  (format "header = \"Authorization: Bearer %s\"\n" token)
+                  (format "url = \"%s/rest/api/2/search?jql=%s&fields=key,summary&maxResults=10\"\n"
+                          (string-remove-suffix "/" url)
+                          (url-hexify-string my/jira-in-progress-jql)))
+          (let ((status (call-process-region (point-min) (point-max) "curl" t '(t nil) nil
+                                             "-K" "-")))
+            (if (not (eq status 0))
+                (progn (message "Jira query failed (curl exit status %s)" status) nil)
+              (goto-char (point-min))
+              (let ((issues (mapcar (lambda (issue)
+                                      (cons (alist-get 'key issue)
+                                            (alist-get 'summary (alist-get 'fields issue))))
+                                    (alist-get 'issues (json-parse-buffer :object-type 'alist
+                                                                          :array-type 'list)))))
+                (setq my/jira--cache (cons (current-time) issues))
+                issues))))))))
 
 (defun my/insert-jira-issue-id ()
+  "Insert the key of my in-progress Jira issue at point, choosing if several."
   (interactive)
-  (insert (my/first-match "^[A-Z0-9]+-[0-9]+"
-                          (shell-command-to-string "git rev-parse --symbolic --abbrev-ref HEAD"))))
+  (let ((issues (my/jira-in-progress-issues)))
+    (cond ((null issues)
+           (user-error "No Jira issue in progress"))
+          ((cdr issues)
+           (let ((choice (completing-read
+                          "In progress: "
+                          (mapcar (lambda (issue) (format "%s  %s" (car issue) (cdr issue)))
+                                  issues)
+                          nil t)))
+             (insert (car (split-string choice "  ")))))
+          (t
+           (insert (caar issues))))))
 
-(global-set-key (kbd "C-c C-j") #'my/insert-jira-issue-id)
+(when (getenv "WSL_DISTRO_NAME")
+  (global-set-key (kbd "C-c j") #'my/insert-jira-issue-id))
 
 ;; Markdown / Obsidian wiki-links ----------------------------------------------
 

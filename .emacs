@@ -361,41 +361,27 @@ each hit is navigable (RET / n / p) like any grep result."
 
 ;; Indent left, indent right ---------------------------------------------------
 
-(global-set-key (kbd "C-M-]")
-    #'(lambda (arg)
-        (interactive "p")
-        (save-excursion
-            (let ((deactivate-mark nil))
-            (indent-rigidly (min (point) (mark))
-                (max (point) (mark))
-                4)))))
+;; C-c plus a letter is reserved for users and works in terminals too; the
+;; former C-M-[ { } bindings only ever reached Emacs in the GUI (C-M-[ is ESC
+;; ESC, and terminals cannot send Ctrl+Shift combinations). C-c < > { } would
+;; be terminal-safe as well but are reserved for major modes (markdown, org).
 
-(global-set-key (kbd "C-M-[")
-    #'(lambda (arg)
-        (interactive "p")
-        (save-excursion
-            (let ((deactivate-mark nil))
-            (indent-rigidly (min (point) (mark))
-                (max (point) (mark))
-                (- 4))))))
+(defun my/indent-region-rigidly (columns)
+  "Shift the region between point and mark by COLUMNS, keeping it active."
+  (interactive "nColumns (negative shifts left): ")
+  (let ((deactivate-mark nil))
+    (save-excursion
+      (indent-rigidly (region-beginning) (region-end) columns))))
 
-(global-set-key (kbd "C-M-}")
-    #'(lambda (arg)
-        (interactive "p")
-        (save-excursion
-            (let ((deactivate-mark nil))
-            (indent-rigidly (min (point) (mark))
-                (max (point) (mark))
-                2)))))
+(defun my/indent-region-right-4 () (interactive) (my/indent-region-rigidly 4))
+(defun my/indent-region-left-4 () (interactive) (my/indent-region-rigidly -4))
+(defun my/indent-region-right-2 () (interactive) (my/indent-region-rigidly 2))
+(defun my/indent-region-left-2 () (interactive) (my/indent-region-rigidly -2))
 
-(global-set-key (kbd "C-M-{")
-    #'(lambda (arg)
-        (interactive "p")
-        (save-excursion
-            (let ((deactivate-mark nil))
-            (indent-rigidly (min (point) (mark))
-                (max (point) (mark))
-                (- 2))))))
+(global-set-key (kbd "C-c i") #'my/indent-region-right-4)   ; indent
+(global-set-key (kbd "C-c u") #'my/indent-region-left-4)    ; unindent
+(global-set-key (kbd "C-c I") #'my/indent-region-right-2)
+(global-set-key (kbd "C-c U") #'my/indent-region-left-2)
 
 ;; CamelCase <-> snake_case ----------------------------------------------------
 

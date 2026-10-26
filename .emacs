@@ -28,8 +28,8 @@
       `((".*" ,(locate-user-emacs-file "auto-save/") t)))
 (make-directory (locate-user-emacs-file "auto-save/") t)
 
-(setq visible-bell 1)
 (setq ring-bell-function 'ignore)
+(setq use-short-answers t)   ; y / n instead of yes / no
 (setq warning-suppress-types '((comp)))
 (column-number-mode)
 
@@ -75,7 +75,12 @@
 
 (global-set-key (kbd "C-c l") #'my/layout-4-columns)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; Markdown is exempt: two trailing spaces are a hard line break there.
+(defun my/delete-trailing-whitespace-unless-markdown ()
+  (unless (derived-mode-p 'markdown-mode)
+    (delete-trailing-whitespace)))
+
+(add-hook 'before-save-hook #'my/delete-trailing-whitespace-unless-markdown)
 
 ;; clojure-lsp, clj and bb live in ~/.local/bin; cargo tools in ~/.cargo/bin.
 (dolist (dir '("~/.local/bin" "~/.cargo/bin"))
@@ -172,7 +177,8 @@
   (corfu-cycle t)
   (global-corfu-modes '((not text-mode) t))   ; not in prose: commit messages, markdown
   :init
-  (global-corfu-mode 1))
+  (global-corfu-mode 1)
+  (corfu-echo-mode 1))   ; current candidate's documentation in the echo area
 
 (use-package corfu-terminal
   :after corfu
@@ -293,10 +299,7 @@ each hit is navigable (RET / n / p) like any grep result."
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\'" . text-mode))
 (add-to-list 'auto-mode-alist '("\\.jjdescription\\'" . text-mode))
 
-(add-hook 'text-mode-hook
-          (lambda ()
-            (flyspell-mode)
-            (setq fill-column 100)))
+(add-hook 'text-mode-hook #'flyspell-mode)
 
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 

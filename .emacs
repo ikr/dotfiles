@@ -76,6 +76,56 @@
 (use-package ace-window
   :bind ("M-o" . ace-window))
 
+;; Minibuffer completion -------------------------------------------------------
+
+;; vertico shows candidates vertically, orderless matches space-separated terms in
+;; any order, marginalia annotates candidates, consult provides the enhanced
+;; commands (buffers, lines, grep, imenu...), embark acts on the candidate at
+;; point. All plain completing-read, so every built-in command benefits.
+
+(use-package vertico
+  :init (vertico-mode 1))
+
+;; Part of vertico: RET on a directory enters it, DEL deletes whole path parts.
+(use-package vertico-directory
+  :ensure nil
+  :after vertico
+  :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package marginalia
+  :init (marginalia-mode 1))
+
+(use-package consult
+  :bind (([remap switch-to-buffer] . consult-buffer)
+         ([remap yank-pop] . consult-yank-pop)
+         ([remap goto-line] . consult-goto-line)
+         ("M-g i" . consult-imenu)
+         ("M-s l" . consult-line)
+         ("M-s g" . consult-git-grep))   ; no ripgrep installed; else consult-ripgrep
+  :custom
+  ;; Let consult's project-aware commands use projectile's notion of a project.
+  (consult-project-function (lambda (_) (projectile-project-root))))
+
+;; C-. and C-; are taken by flyspell in nearly every buffer, and terminals cannot
+;; send Ctrl+punctuation anyway, hence C-c .
+(use-package embark
+  :bind (("C-c ." . embark-act)
+         ("C-h B" . embark-bindings)))
+
+(use-package embark-consult
+  :after (embark consult)
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
+
 ;; Multi-line edit -------------------------------------------------------------
 
 (use-package multiple-cursors
@@ -154,13 +204,12 @@ each hit is navigable (RET / n / p) like any grep result."
 (use-package editorconfig
   :config (editorconfig-mode 1))
 
-(use-package ivy :defer t)       ; used by projectile and lsp-ivy
 (use-package company :defer t)   ; auto-enabled by lsp-mode in LSP buffers
 (use-package flycheck :defer t)  ; auto-enabled by lsp-mode in LSP buffers
 
 (use-package projectile
   :demand t
-  :custom (projectile-completion-system 'ivy)
+  :custom (projectile-completion-system 'default)   ; completing-read, i.e. vertico
   :bind-keymap ("C-c p" . projectile-command-map)
   :config (projectile-mode +1))
 
@@ -200,8 +249,8 @@ each hit is navigable (RET / n / p) like any grep result."
 (use-package lsp-ui
   :bind ("C-c d" . lsp-ui-doc-toggle))
 
-(use-package lsp-ivy
-  :bind ("C-c s" . lsp-ivy-workspace-symbol))
+(use-package consult-lsp
+  :bind ("C-c s" . consult-lsp-symbols))
 
 ;; IDE: languages --------------------------------------------------------------
 
@@ -328,3 +377,20 @@ e.g. `HelloWorldString'."
 
 (if (my/on-wsl-p)
     (advice-add 'kill-new :after #'my/wsl-update-clip))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
+ '(electric-pair-mode t)
+ '(package-selected-packages
+   '(rustic protobuf-mode sqlformat rust-mode lsp-metals scala-mode company ace-window cider clojure-mode editorconfig flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch yaml-mode zenburn-theme avy projectile bind-key markdown-mode))
+ '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

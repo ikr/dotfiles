@@ -22,7 +22,7 @@
 (setq make-backup-files nil)
 (setq visible-bell 1)
 (setq ring-bell-function 'ignore)
-(setq warning-suppress-types '((lsp-mode) (comp)))
+(setq warning-suppress-types '((comp)))
 (column-number-mode)
 
 (if (display-graphic-p)
@@ -289,6 +289,7 @@ each hit is navigable (RET / n / p) like any grep result."
          (lsp-mode . lsp-enable-which-key-integration))
   :custom
   (lsp-completion-provider :none)   ; plain completion-at-point, shown by corfu
+  (lsp-enable-snippet nil)          ; no yasnippet: servers send plain completions
   (lsp-enable-file-watchers nil)
   ;; clangd's on-type formatting fights with the C++ auto-indent.
   (lsp-enable-on-type-formatting nil)

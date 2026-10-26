@@ -441,8 +441,7 @@ each hit is navigable (RET / n / p) like any grep result."
 (use-package persistent-scratch
   :config (persistent-scratch-setup-default))
 
-(global-set-key (kbd "C-c C-b") 'comment-region)
-(global-set-key (kbd "C-c C-v") 'uncomment-region)
+(global-set-key (kbd "C-c c") #'comment-or-uncomment-region)
 
 (defalias 'my/duplicate-current-line (kmacro "C-a C-k C-k C-y C-y C-b M-m"))
 (global-set-key (kbd "C-x C-x") #'my/duplicate-current-line)
@@ -454,17 +453,9 @@ each hit is navigable (RET / n / p) like any grep result."
     (kill-new path)
     (message "Copied: %s" path)))
 
-;; C-c <letter> is reserved for users, so no major or minor mode will shadow it.
-;; (The previous C-c C-c / C-c C-d / C-c C-n bindings clobbered CIDER's
-;; eval-defun, doc map and set-ns.)
 (global-set-key (kbd "C-c f") #'my/copy-buffer-file-path)
 
 ;; Indent left, indent right ---------------------------------------------------
-
-;; C-c plus a letter is reserved for users and works in terminals too; the
-;; former C-M-[ { } bindings only ever reached Emacs in the GUI (C-M-[ is ESC
-;; ESC, and terminals cannot send Ctrl+Shift combinations). C-c < > { } would
-;; be terminal-safe as well but are reserved for major modes (markdown, org).
 
 (defun my/indent-region-rigidly (columns)
   "Shift the region between point and mark by COLUMNS, keeping it active."

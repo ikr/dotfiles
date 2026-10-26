@@ -233,6 +233,13 @@ each hit is navigable (RET / n / p) like any grep result."
 (use-package editorconfig
   :config (editorconfig-mode 1))
 
+;; After a prefix key (C-c ', C-c C-d, C-c p, ...) show what can follow.
+(use-package which-key
+  :config (which-key-mode 1))
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
 (use-package flycheck :defer t)  ; auto-enabled by lsp-mode in LSP buffers
 
 (use-package projectile
@@ -248,12 +255,18 @@ each hit is navigable (RET / n / p) like any grep result."
   (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
         '(orderless)))
 
+;; Language servers send large JSON payloads; the Emacs defaults (800 kB GC
+;; threshold, 64 kB per process read) make lsp-mode noticeably sluggish.
+(setq gc-cons-threshold (* 100 1024 1024)
+      read-process-output-max (* 1024 1024))
+
 (use-package lsp-mode
   :init
   ;; Must be set before lsp-mode loads: it is baked into lsp-mode-map.
   (setq lsp-keymap-prefix "C-c '")
   :hook (((c++-mode rust-mode scala-mode) . lsp-deferred)
-         (lsp-completion-mode . my/lsp-completion-setup))
+         (lsp-completion-mode . my/lsp-completion-setup)
+         (lsp-mode . lsp-enable-which-key-integration))
   :custom
   (lsp-completion-provider :none)   ; plain completion-at-point, shown by corfu
   (lsp-enable-file-watchers nil)

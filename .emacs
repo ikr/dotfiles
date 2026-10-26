@@ -141,7 +141,11 @@
          ("C-c r" . consult-recent-file))
   :custom
   ;; Let consult's project-aware commands use projectile's notion of a project.
-  (consult-project-function (lambda (_) (projectile-project-root))))
+  (consult-project-function (lambda (_) (projectile-project-root)))
+  (consult-narrow-key "<")   ; e.g. "< b" in C-x b shows buffers only
+  ;; M-? (references) and M-. with several definitions in vertico, with preview.
+  (xref-show-xrefs-function #'consult-xref)
+  (xref-show-definitions-function #'consult-xref))
 
 ;; C-. and C-; are taken by flyspell in nearly every buffer, and terminals cannot
 ;; send Ctrl+punctuation anyway, hence C-c .

@@ -414,17 +414,34 @@ e.g. `HelloWorldString'."
 
 (global-set-key (kbd "C-c M--") #'my/toggle-identifier-naming-style)
 
-;; WSL clipboard copy ----------------------------------------------------------
+;; Terminal clipboard ----------------------------------------------------------
 
-(defun my/on-wsl-p ()
-  (getenv "WSL_DISTRO_NAME"))
+;; In a GUI frame Emacs talks to the system clipboard itself. In a terminal
+;; frame it cannot, so every kill is piped to the first clipboard tool
+;; available: clip.exe on WSL, wl-copy on Wayland, xclip on X11. (OSC 52 escape
+;; sequences would avoid external tools, but GNOME's VTE-based terminals ignore
+;; them.) The decision is made per kill, not at startup, because a daemon serves
+;; GUI and `emacsclient -t' frames alike and starts before any of them exists.
 
-(defun my/wsl-update-clip (&rest _args)
-  "Update Windows clipboard with latest kill ring entry."
-  (when-let ((str (current-kill 0)))
-    (with-temp-buffer
-      (insert str)
-      (shell-command-on-region (point-min) (point-max) "clip.exe" nil nil))))
+(defun my/terminal-clipboard-command ()
+  "Clipboard tool for the current environment, as an argument list, or nil."
+  (cond ((getenv "WSL_DISTRO_NAME") '("clip.exe"))
+        ((and (getenv "WAYLAND_DISPLAY") (executable-find "wl-copy")) '("wl-copy"))
+        ((and (getenv "DISPLAY") (executable-find "xclip")) '("xclip" "-selection" "clipboard"))))
 
-(if (my/on-wsl-p)
-    (advice-add 'kill-new :after #'my/wsl-update-clip))
+(defun my/clipboard-copy (text)
+  "Copy TEXT to the system clipboard, natively or through an external tool."
+  (if (display-graphic-p)
+      (gui-select-text text)
+    ;; A daemon's own environment may lack DISPLAY; an emacsclient frame carries
+    ;; the client's environment, so consult that first.
+    (let ((process-environment (append (frame-parameter nil 'environment)
+                                       process-environment)))
+      (when-let ((command (my/terminal-clipboard-command)))
+        (let* ((process-connection-type nil)   ; a pipe, not a pty
+               (proc (apply #'start-process "clipboard" nil command)))
+          (set-process-query-on-exit-flag proc nil)
+          (process-send-string proc text)
+          (process-send-eof proc))))))
+
+(setq interprogram-cut-function #'my/clipboard-copy)

@@ -20,6 +20,14 @@
 ;; Tweaking of built-ins -------------------------------------------------------
 
 (setq make-backup-files nil)
+
+;; Keep Emacs's own files out of project trees: jj snapshots every file in the
+;; working copy, and file watchers (shadow-cljs, clojure-lsp) react to them.
+(setq create-lockfiles nil)
+(setq auto-save-file-name-transforms
+      `((".*" ,(locate-user-emacs-file "auto-save/") t)))
+(make-directory (locate-user-emacs-file "auto-save/") t)
+
 (setq visible-bell 1)
 (setq ring-bell-function 'ignore)
 (setq warning-suppress-types '((comp)))

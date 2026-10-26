@@ -235,6 +235,7 @@ each hit is navigable (RET / n / p) like any grep result."
 
 ;; After a prefix key (C-c ', C-c C-d, C-c p, ...) show what can follow.
 (use-package which-key
+  :ensure nil   ; built into Emacs 30
   :config (which-key-mode 1))
 
 (use-package rainbow-delimiters
@@ -303,7 +304,7 @@ each hit is navigable (RET / n / p) like any grep result."
 ;; IDE: languages --------------------------------------------------------------
 
 (defun my/clojure-mode-setup ()
-  "Shared setup for Clojure buffers (clojure-mode now, clojure-ts-mode later)."
+  "Shared setup for Clojure buffers, in clojure-ts-mode and clojure-mode alike."
   (enable-paredit-mode)
   ;; clojure-mode indents instantly and agrees with cljfmt, which still formats
   ;; the buffer on save through clojure-lsp. LSP indentation would round-trip to
@@ -315,6 +316,26 @@ each hit is navigable (RET / n / p) like any grep result."
 
 (use-package clojure-mode
   :hook (clojure-mode . my/clojure-mode-setup))
+
+;; Tree-sitter based major mode: parser-accurate highlighting and indentation,
+;; and the direction CIDER is heading. clojure-mode stays installed because
+;; CIDER depends on it. The grammars are compiled on first use (needs gcc,
+;; git). To go back, drop the remaps below.
+(use-package clojure-ts-mode
+  :hook (clojure-ts-mode . my/clojure-mode-setup)
+  :init
+  (dolist (remap '((clojure-mode . clojure-ts-mode)
+                   (clojurescript-mode . clojure-ts-clojurescript-mode)
+                   (clojurec-mode . clojure-ts-clojurec-mode)))
+    (add-to-list 'major-mode-remap-alist remap))
+  :config
+  ;; The pinned markdown-inline grammar (docstring highlighting) is built with
+  ;; tree-sitter ABI 15; Ubuntu 24.04's libtree-sitter only loads up to 14.
+  ;; Without this, every Clojure buffer would retry cloning and compiling it.
+  (when (< (treesit-library-abi-version) 15)
+    (setq clojure-ts-use-markdown-inline nil
+          clojure-ts-grammar-recipes
+          (assq-delete-all 'markdown-inline clojure-ts-grammar-recipes))))
 
 ;; Division of labor with clojure-lsp: lsp drives navigation, completion and docs
 ;; while editing; CIDER's REPL-backed versions take precedence once connected

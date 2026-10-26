@@ -292,6 +292,10 @@ each hit is navigable (RET / n / p) like any grep result."
 (defun my/clojure-mode-setup ()
   "Shared setup for Clojure buffers (clojure-mode now, clojure-ts-mode later)."
   (enable-paredit-mode)
+  ;; clojure-mode indents instantly and agrees with cljfmt, which still formats
+  ;; the buffer on save through clojure-lsp. LSP indentation would round-trip to
+  ;; the server on every TAB and indent-region instead.
+  (setq-local lsp-enable-indentation nil)
   (lsp-deferred))
 
 (use-package paredit :defer t)
@@ -299,7 +303,20 @@ each hit is navigable (RET / n / p) like any grep result."
 (use-package clojure-mode
   :hook (clojure-mode . my/clojure-mode-setup))
 
-(use-package cider :defer t)
+;; Division of labor with clojure-lsp: lsp drives navigation, completion and docs
+;; while editing; CIDER's REPL-backed versions take precedence once connected
+;; (they register later in the same hooks). Formatting stays with lsp/cljfmt.
+(use-package cider
+  :hook (cider-repl-mode . enable-paredit-mode)
+  :custom
+  ;; lsp hover already documents the symbol at point; CIDER's eldoc then only
+  ;; shows the arglist of the enclosing call, instead of duplicating it.
+  (cider-eldoc-display-for-symbol-at-point nil)
+  (cider-repl-pop-to-buffer-on-connect 'display-only)   ; show the REPL, keep focus
+  (cider-repl-display-help-banner nil)
+  (cider-save-file-on-load t)                           ; no prompt on C-c C-k
+  (cider-repl-history-file (locate-user-emacs-file "cider-history"))
+  (nrepl-hide-special-buffers t))                       ; *nrepl-server* etc. out of C-x b
 
 (use-package rustic :defer t)
 (use-package scala-mode :defer t)

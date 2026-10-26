@@ -33,11 +33,11 @@
 (setq warning-suppress-types '((comp)))
 (column-number-mode)
 
-(if (display-graphic-p)
-    (progn
-      (tool-bar-mode -1)
-      (scroll-bar-mode -1)))
-
+;; Global settings, inherited by every frame a daemon creates later, graphical
+;; ones included. A terminal-only build (emacs-nox) has no scroll-bar-mode.
+(tool-bar-mode -1)
+(when (fboundp 'scroll-bar-mode)
+  (scroll-bar-mode -1))
 (menu-bar-mode -1)
 
 (delete-selection-mode 1)

@@ -126,6 +126,35 @@
   :after (embark consult)
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
+;; In-buffer completion --------------------------------------------------------
+
+;; corfu pops up completion-at-point candidates, matched by orderless like the
+;; minibuffer; cape adds extra sources (words in open buffers, file names). In
+;; terminals corfu-terminal draws the popup with overlays instead of a child
+;; frame; it disables itself on graphical displays.
+
+(use-package corfu
+  :custom
+  (corfu-auto t)             ; pop up while typing...
+  (corfu-auto-prefix 2)      ; ...after two characters...
+  (corfu-auto-delay 0.2)     ; ...and a short pause
+  (corfu-cycle t)
+  (global-corfu-modes '((not text-mode) t))   ; not in prose: commit messages, markdown
+  :init
+  (global-corfu-mode 1))
+
+(use-package corfu-terminal
+  :after corfu
+  :config (corfu-terminal-mode 1))
+
+(use-package cape
+  :init
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file))
+
+;; TAB indents the line; when it is already indented, TAB completes instead.
+(setq tab-always-indent 'complete)
+
 ;; Multi-line edit -------------------------------------------------------------
 
 (use-package multiple-cursors
@@ -204,7 +233,6 @@ each hit is navigable (RET / n / p) like any grep result."
 (use-package editorconfig
   :config (editorconfig-mode 1))
 
-(use-package company :defer t)   ; auto-enabled by lsp-mode in LSP buffers
 (use-package flycheck :defer t)  ; auto-enabled by lsp-mode in LSP buffers
 
 (use-package projectile
@@ -215,12 +243,19 @@ each hit is navigable (RET / n / p) like any grep result."
 
 ;; IDE: LSP --------------------------------------------------------------------
 
+(defun my/lsp-completion-setup ()
+  "Match LSP candidates with orderless instead of lsp-mode's passthrough style."
+  (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+        '(orderless)))
+
 (use-package lsp-mode
   :init
   ;; Must be set before lsp-mode loads: it is baked into lsp-mode-map.
   (setq lsp-keymap-prefix "C-c '")
-  :hook ((c++-mode rust-mode scala-mode) . lsp-deferred)
+  :hook (((c++-mode rust-mode scala-mode) . lsp-deferred)
+         (lsp-completion-mode . my/lsp-completion-setup))
   :custom
+  (lsp-completion-provider :none)   ; plain completion-at-point, shown by corfu
   (lsp-enable-file-watchers nil)
   ;; clangd's on-type formatting fights with the C++ auto-indent.
   (lsp-enable-on-type-formatting nil)

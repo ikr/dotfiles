@@ -447,8 +447,9 @@ each hit is navigable (RET / n / p) like any grep result."
 
 (global-set-key (kbd "C-c c") #'comment-or-uncomment-region)
 
-(defalias 'my/duplicate-current-line (kmacro "C-a C-k C-k C-y C-y C-b M-m"))
-(global-set-key (kbd "C-x C-x") #'my/duplicate-current-line)
+;; Duplicate the line, or the region if active, without touching the kill ring.
+(setq duplicate-line-final-position 1)   ; point moves to the copy
+(global-set-key (kbd "C-c y") #'duplicate-dwim)
 
 (defun my/copy-buffer-file-path ()
   "Copy the full path of the current buffer's file to the kill ring."

@@ -377,20 +377,3 @@ e.g. `HelloWorldString'."
 
 (if (my/on-wsl-p)
     (advice-add 'kill-new :after #'my/wsl-update-clip))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("9ffe970317cdfd1a9038ee23f4f5fe0b28b99950281799e4397e1a1380123147" default))
- '(electric-pair-mode t)
- '(package-selected-packages
-   '(rustic protobuf-mode sqlformat rust-mode lsp-metals scala-mode company ace-window cider clojure-mode editorconfig flycheck kotlin-mode lsp-mode lsp-ui multiple-cursors nginx-mode paredit persistent-scratch yaml-mode zenburn-theme avy projectile bind-key markdown-mode))
- '(warning-suppress-types '((lsp-mode) (lsp-mode) (comp))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

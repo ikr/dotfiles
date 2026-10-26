@@ -439,7 +439,10 @@ each hit is navigable (RET / n / p) like any grep result."
   (nrepl-hide-special-buffers t))                       ; *nrepl-server* etc. out of C-x b
 
 (use-package rustic :defer t)
-(use-package scala-mode :defer t)
+(use-package scala-mode
+  ;; Mill build files and Scala scripts; scala-mode itself claims only
+  ;; .scala, .sbt and .worksheet.sc.
+  :mode ("\\.mill\\'" "\\.sc\\'"))
 (use-package lsp-metals :defer t)   ; picked up by lsp-mode via lsp-client-packages
 (use-package kotlin-mode :defer t)
 

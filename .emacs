@@ -1,10 +1,21 @@
+;; -*- lexical-binding: t -*-
 ;; Package system --------------------------------------------------------------
+
+(setq warning-suppress-types '((comp) (files)))
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-(unless package-archive-contents
+(defun my/package-archive-stale-p ()
+  "Return t if the MELPA archive cache is older than a day."
+  (let ((f (locate-user-emacs-file "elpa/archives/melpa/archive-contents")))
+    (or (not (file-exists-p f))
+        (> (- (float-time) (float-time (nth 5 (file-attributes f))))
+           (* 24 60 60)))))
+
+(when (or (not package-archive-contents)
+          (my/package-archive-stale-p))
   (package-refresh-contents))
 
 ;; use-package ships with Emacs 29+. Every (use-package foo) block below also
@@ -30,7 +41,6 @@
 
 (setq ring-bell-function 'ignore)
 (setq use-short-answers t)   ; y / n instead of yes / no
-(setq warning-suppress-types '((comp)))
 (column-number-mode)
 
 ;; Global settings, inherited by every frame a daemon creates later, graphical
@@ -181,6 +191,7 @@
   (corfu-echo-mode 1))   ; current candidate's documentation in the echo area
 
 (use-package corfu-terminal
+  :when (version< emacs-version "31")
   :after corfu
   :config (corfu-terminal-mode 1))
 
@@ -460,7 +471,7 @@ each hit is navigable (RET / n / p) like any grep result."
 (defun my/copy-buffer-file-path ()
   "Copy the full path of the current buffer's file to the kill ring."
   (interactive)
-  (when-let ((path (buffer-file-name)))
+  (when-let* ((path (buffer-file-name)))
     (kill-new path)
     (message "Copied: %s" path)))
 
@@ -539,7 +550,7 @@ e.g. `HelloWorldString'."
     ;; the client's environment, so consult that first.
     (let ((process-environment (append (frame-parameter nil 'environment)
                                        process-environment)))
-      (when-let ((command (my/terminal-clipboard-command)))
+      (when-let* ((command (my/terminal-clipboard-command)))
         (let* ((process-connection-type nil)   ; a pipe, not a pty
                (proc (apply #'start-process "clipboard" nil command)))
           (set-process-query-on-exit-flag proc nil)

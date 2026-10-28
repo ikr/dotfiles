@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 ;; Package system --------------------------------------------------------------
 
-(setq warning-suppress-types '((comp) (files)))
+(setq warning-suppress-types '((comp) (files missing-lexbind-cookie)))
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -177,7 +177,8 @@
 ;; corfu pops up completion-at-point candidates, matched by orderless like the
 ;; minibuffer; cape adds extra sources (words in open buffers, file names). In
 ;; terminals corfu-terminal draws the popup with overlays instead of a child
-;; frame; it disables itself on graphical displays.
+;; frame; it disables itself on graphical displays. Emacs 31 has child frames
+;; on terminals too, so corfu-terminal is neither installed nor loaded there.
 
 (use-package corfu
   :custom
@@ -190,10 +191,10 @@
   (global-corfu-mode 1)
   (corfu-echo-mode 1))   ; current candidate's documentation in the echo area
 
-(use-package corfu-terminal
-  :when (version< emacs-version "31")
-  :after corfu
-  :config (corfu-terminal-mode 1))
+(when (version< emacs-version "31")
+  (use-package corfu-terminal
+    :after corfu
+    :config (corfu-terminal-mode 1)))
 
 (use-package cape
   :init

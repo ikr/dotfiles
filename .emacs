@@ -450,7 +450,7 @@ each hit is navigable (RET / n / p) like any grep result."
   (cider-repl-history-file (locate-user-emacs-file "cider-history"))
   (nrepl-hide-special-buffers t))                       ; *nrepl-server* etc. out of C-x b
 
-(use-package rustic :defer t)
+(use-package rust-mode :defer t)
 (use-package scala-mode
   ;; Mill build files and Scala scripts; scala-mode itself claims only
   ;; .scala, .sbt and .worksheet.sc.

@@ -455,7 +455,12 @@ each hit is navigable (RET / n / p) like any grep result."
   ;; Mill build files and Scala scripts; scala-mode itself claims only
   ;; .scala, .sbt and .worksheet.sc.
   :mode ("\\.mill\\'" "\\.sc\\'"))
-(use-package lsp-metals :defer t)   ; picked up by lsp-mode via lsp-client-packages
+;; Picked up by lsp-mode via lsp-client-packages. One Metals per project: in
+;; multi-root mode lsp-mode hands Metals every folder the saved session has ever
+;; associated with it, and Metals then asks to (re)import each of their builds.
+(use-package lsp-metals
+  :defer t
+  :custom (lsp-metals-multi-root nil))
 (use-package kotlin-mode :defer t)
 
 ;; Misc editing commands -------------------------------------------------------
